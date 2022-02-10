@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
             (m) => m.ProductsModule
           ),
       },
+      { path: 'Users',component: UsersComponent}
     ],
   },
   { path: '**', component: NotFoundComponent },

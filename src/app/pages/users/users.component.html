@@ -1,0 +1,27 @@
+<div class="container table-responsive bg-white">
+  <table class="table">
+    <thead>
+      <tr class="border border-0">
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Address</th>
+        <th scope="col">BirthDate</th>
+        <th scope="col">Add Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of listOfUsers; let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{user.FirstName}} {{user.LastName}}</td>
+        <td>{{user.Email}}</td>
+        <td>{{user.PhoneNumber}}</td>
+        <td>{{user.Address}}</td>
+        <td>{{user.BirthDate}}</td>
+        <td><i class="btn bi bi-person-plus-fill text-success fs-4"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
