@@ -7,6 +7,7 @@ import { Iuser } from 'src/app/Models/iuser';
 })
 export class UserService {
   listOfUsers=[{
+    id:"1",
     Gender:"1",
     Password:"555",
     Email:"ahmed@gmail.com",
@@ -19,6 +20,7 @@ export class UserService {
     Purshased:[]
   },
   {
+    id:"2",
     Gender:"2",
     Password:"555",
     Email:"raghda@gmail.com",
@@ -31,6 +33,7 @@ export class UserService {
     Purshased:[]
   },
   {
+    id:"3",
     Gender:"2",
     Password:"555",
     Email:"noha@gmail.com",
@@ -49,4 +52,5 @@ export class UserService {
     // //get users from firebase
     return this.listOfUsers;
   }
+
 }

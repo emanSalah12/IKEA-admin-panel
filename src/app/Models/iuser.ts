@@ -1,4 +1,5 @@
 export interface Iuser {
+    id:string,
     Gender:string,
     Password:string,
     Email:string,
