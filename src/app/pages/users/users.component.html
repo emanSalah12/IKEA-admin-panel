@@ -1,8 +1,16 @@
+<form class="mb-5">
+  <div class="input-group">
+    <div class="input-group-append">
+      <span class="input-group-text">
+        <mat-icon aria-hidden="false" class="text-secondary">person_search</mat-icon>
+      </span>
+    </div>
+    <input type="search" class="form-control" placeholder="Search user" [(ngModel)]="searchText" name="searchText" (ngModelChange)="onTextChange($event)">
+  </div>
+</form>
+
 <div class="container">
   <table mat-table [dataSource]="listOfUsers" class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
