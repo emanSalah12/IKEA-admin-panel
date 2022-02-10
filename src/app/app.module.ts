@@ -11,7 +11,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { environment } from 'src/environments/environment';
+import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { environment } from 'src/environments/environment';
     DashboardComponent,
     SideMenuComponent,
     NotFoundComponent,
+    ProductTableComponent,
   ],
   imports: [
     BrowserModule,
