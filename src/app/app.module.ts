@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,9 +13,13 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
+import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { LogoutDialogComponent } from './components/layout/logout-dialog/logout-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,15 +28,20 @@ import { MaterialModule } from './material/material.module';
     DashboardComponent,
     SideMenuComponent,
     NotFoundComponent,
+    UsersComponent,
     OrdersComponent,
+    LoginComponent,
+    LogoutDialogComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

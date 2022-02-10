@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -20,8 +22,11 @@ const routes: Routes = [
             (m) => m.ProductsModule
           ),
       },
+      { path: 'Users', component: UsersComponent },
     ],
+    canActivate: [AuthGuard],
   },
+  { path: 'Login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
