@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Iuser } from 'src/app/Models/iuser';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { UserService } from 'src/app/Services/user-service/user.service';
@@ -12,6 +12,7 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
 export class UsersComponent implements OnInit {
   listOfUsers: Iuser[];
   listOfAdmins: IAdmin[];
+  searchText: string;
   displayedColumns: string[] = [
     'position',
     'Name',
@@ -27,8 +28,16 @@ export class UsersComponent implements OnInit {
   ) {
     this.listOfUsers = this.userService.getAllUsers();
     this.listOfAdmins = this.adminService.getAllAdmins();
+    this.searchText = '';
   }
   ngOnInit(): void {}
+  onTextChange() {
+    if (this.searchText == '') {
+      this.listOfUsers = this.userService.getAllUsers();
+    } else {
+      this.listOfUsers = this.userService.getMatchingUsers(this.searchText);
+    }
+  }
   checkIfAdmin(userId: string) {
     for (let admin of this.listOfAdmins) {
       if (admin.id == userId) return true;
