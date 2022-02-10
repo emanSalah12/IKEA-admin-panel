@@ -15,7 +15,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
 // import { environment } from 'src/environments/environment.prod';
 
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
