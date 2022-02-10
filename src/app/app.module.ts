@@ -11,8 +11,14 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
-import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment.prod';
+
+import { environment } from 'src/environments/environment';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -22,12 +28,15 @@ import { environment } from 'src/environments/environment.prod';
     SideMenuComponent,
     NotFoundComponent,
     ProductTableComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent],
