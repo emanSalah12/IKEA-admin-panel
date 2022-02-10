@@ -4,7 +4,7 @@ import { MainLayoutComponent } from './components/layout/main-layout/main-layout
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
-
+import { OrdersComponent } from './pages/orders/orders.component';
 const routes: Routes = [
   {
     path: '',
@@ -12,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
       { path: 'Dashboard', component: DashboardComponent },
+      { path: 'Orders', component: OrdersComponent },
       {
         path: 'Products',
         loadChildren: () =>
