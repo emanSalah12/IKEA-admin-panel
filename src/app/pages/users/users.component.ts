@@ -31,13 +31,13 @@ export class UsersComponent implements OnInit{
     this.searchText="";
   }
   ngOnInit(): void {}
-  onTextChange(searchValue:string){
-    if(searchValue=="")
+  onTextChange(){
+    if(this.searchText=="")
     {
       this.listOfUsers= this.userService.getAllUsers();
     }
     else{
-      this.listOfUsers=this.userService.getMatchingUsers(searchValue);
+      this.listOfUsers=this.userService.getMatchingUsers(this.searchText);
     }
   }
   checkIfAdmin(userId: string) {
