@@ -11,6 +11,13 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      {
+        path: 'Products',
+        loadChildren: () =>
+          import('src/app/pages/products-module/products-module.module').then(
+            (m) => m.ProductsModule
+          ),
+      },
     ],
   },
   { path: '**', component: NotFoundComponent },
@@ -20,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
