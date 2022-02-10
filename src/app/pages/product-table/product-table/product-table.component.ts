@@ -1,26 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IProduct } from 'src/app/Models/iProducts';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 @Component({
   selector: 'app-product-table',
@@ -28,13 +8,25 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./product-table.component.scss']
 })
 
-
 export class ProductTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','action'];
-  dataSource = ELEMENT_DATA;
+  prdList: IProduct[];
 
-  constructor() { }
+  constructor() { 
+    this.prdList = [
+      {Id: 1, name: 'first', price: 1.0079, quantity: 12, material: 'cotton', avail: true},
+      {Id: 2, name: 'second', price: 4.0026, quantity: 12, material: 'cotton', avail: true},
+      {Id: 3, name: 'third', price: 6.941, quantity: 15, material: 'cotton', avail: false},
+      {Id: 4, name: 'fourth', price: 9.0122, quantity: 24, material: 'cotton', avail: true},
+      {Id: 5, name: 'fifth', price: 10.811, quantity: 5, material: 'cotton', avail: false},
+      {Id: 6, name: 'sixth', price: 12.0107, quantity: 2, material: 'cotton', avail: true},
+      {Id: 7, name: 'seventh', price: 14.0067, quantity: 7, material: 'cotton' , avail: false},
+      {Id: 8, name: 'eighth', price: 15.9994, quantity: 5, material: 'cotton', avail: false},
+      {Id: 9, name: 'ninth', price: 18.9984, quantity: 1, material: 'cotton', avail: true},
+      {Id: 10, name: 'tenth', price: 20.1797, quantity: 10, material: 'cotton', avail: true},
+    ];
+    
+  }
 
   ngOnInit(): void {
   }
