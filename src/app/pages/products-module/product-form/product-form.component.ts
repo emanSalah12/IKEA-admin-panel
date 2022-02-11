@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductFormComponent implements OnInit {
 
+  prdId: number
+  prdName: string  ;
+  prdPrice: number;
+  prdQuan: number ;
+  prdMaterial: string ;
+  prdAvailability: boolean ;
+
   constructor() { }
 
   ngOnInit(): void {

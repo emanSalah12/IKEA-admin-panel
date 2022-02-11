@@ -1,7 +1,7 @@
 <div class="parent">
   <h3>Products</h3>
 
-<button type="button" class="btnTop btn-primary" [routerLink]="['/addNewProd']">Add Product</button>
+<button type="button" class="btnTop btn-primary" [routerLink]="['/ProductForm']">Add Product</button>
 
 <table class="table">
     <thead class="table-dark">
@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let prd of prdList">
-        <td> {{prd.Id}} </td>
+        <td> {{prd.id}} </td>
         <td> {{prd.name}} </td>
         <td> {{prd.price}} </td>
         <td> {{prd.quantity}} </td>
