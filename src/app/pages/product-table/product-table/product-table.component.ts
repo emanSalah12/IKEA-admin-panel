@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { IProduct } from 'src/app/Models/iProducts';
+import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 
 
 @Component({
@@ -8,27 +9,36 @@ import { IProduct } from 'src/app/Models/iProducts';
   styleUrls: ['./product-table.component.scss']
 })
 
-export class ProductTableComponent implements OnInit {
+export class ProductTableComponent implements OnInit, OnChanges {
 
   prdList: IProduct[];
+  prodListMatchCategID: IProduct[] = [];
 
-  constructor() { 
-    this.prdList = [
-      {id: '1h', name: 'first', price: 1.0079, quantity: 12, material: 'cotton', avail: true},
-      {id: '2h', name: 'second', price: 4.0026, quantity: 12, material: 'cotton', avail: true},
-      {id: '3h', name: 'third', price: 6.941, quantity: 15, material: 'cotton', avail: false},
-      {id: '4h', name: 'fourth', price: 9.0122, quantity: 24, material: 'cotton', avail: true},
-      {id: '5h', name: 'fifth', price: 10.811, quantity: 5, material: 'cotton', avail: false},
-      {id: '6h', name: 'sixth', price: 12.0107, quantity: 2, material: 'cotton', avail: true},
-      {id: '7h', name: 'seventh', price: 14.0067, quantity: 7, material: 'cotton' , avail: false},
-      {id: '8h', name: 'eighth', price: 15.9994, quantity: 5, material: 'cotton', avail: false},
-      {id: '9h', name: 'ninth', price: 18.9984, quantity: 1, material: 'cotton', avail: true},
-      {id: '1h', name: 'tenth', price: 20.1797, quantity: 10, material: 'cotton', avail: true},
-    ];
+  constructor(
+    private productServices: ProductsCrudService
+  ) { 
+    // this.prdList = [
+    //   {id: '1h', Name: 'first', Price: 1.0079, Quantity: 12, Material: 'cotton', Online: true},
+    //   {id: '2h', Name: 'second', Price: 4.0026, Quantity: 12, Material: 'cotton', Online: true},
+    //   {id: '3h', Name: 'third', Price: 6.941, Quantity: 15, Material: 'cotton', Online: false},
+    //   {id: '4h', Name: 'fourth', Price: 9.0122, Quantity: 24, Material: 'cotton', Online: true},
+    //   {id: '5h', Name: 'fifth', Price: 10.811, Quantity: 5, Material: 'cotton', Online: false},
+    //   {id: '6h', Name: 'sixth', Price: 12.0107, Quantity: 2, Material: 'cotton', Online: true},
+    //   {id: '7h', Name: 'seventh', Price: 14.0067, Quantity: 7, Material: 'cotton' , Online: false},
+    //   {id: '8h', Name: 'eighth', Price: 15.9994, Quantity: 5, Material: 'cotton', Online: false},
+    //   {id: '9h', Name: 'ninth', Price: 18.9984, Quantity: 1, Material: 'cotton', Online: true},
+    //   {id: '1h', Name: 'tenth', Price: 20.1797, Quantity: 10, Material: 'cotton', Online: true},
+    // ];
     
   }
 
   ngOnInit(): void {
+    this.prodListMatchCategID = this.productServices.getAllProducts();
   }
+
+  ngOnChanges() {
+    
+  }
+
 
 }

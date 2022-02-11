@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Orders', component: OrdersComponent },
       {path: 'Products', component:ProductTableComponent},
-      {path: 'addNewProd', component: AddNewProductComponent},
+      {path: 'AddNewProduct', component: AddNewProductComponent},
       {
         path: 'Products',
         loadChildren: () =>
