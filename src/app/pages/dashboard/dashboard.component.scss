@@ -1,0 +1,55 @@
+
+.main-part {
+  margin: 0 auto;
+  text-align: center;
+  padding: 0px 5px;
+}
+
+.cpanel {
+  color: #fff;
+  margin-top: 20px;
+}
+
+
+.icon-part i {
+  font-size: 30px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  margin-top: -25px;
+  margin-bottom: 10px;
+
+}
+
+.icon-part p {
+  margin: 0px;
+  font-size: 13px;
+  padding-bottom: 10px;
+}
+
+.cpanel-red .icon-part,
+.cpanel-blue .icon-part
+{
+  border-radius:4px ;
+
+}
+
+.cpanel-red .icon-part,
+.cpanel-red .icon-part i {
+  background-color: #E74C3C;
+}
+
+.cpanel-blue .icon-part,
+.cpanel-blue .icon-part i {
+  background-color: #34495E;
+
+}
+
+.cpanel-red .card-content-part {
+  background-color: #CF4436;
+}
+
+.cpanel-blue .card-content-part {
+  background-color: #34495E;
+}
+
