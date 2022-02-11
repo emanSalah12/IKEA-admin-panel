@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IOrder } from 'src/app/Models/iorder';
+import { OrdersService } from 'src/app/Services/orders.service';
 
 export interface PeriodicElement {
   name: string;
@@ -29,11 +31,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 export class OrdersComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','action'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns1: string[] = ['position', 'name', 'weight', 'symbol','action'];
+  displayedColumns: string[] = ['index', 'total', 'purchaseDate', 'status','action'];
 
-  constructor() {
-   
+  dataSource = ELEMENT_DATA;
+  ordersList:IOrder[];
+
+  constructor( private orders:OrdersService) {
+    this.ordersList=this.orders.getOrders();
+   }
+
+   completeOrder(){
+     alert('completed')
    }
 
   ngOnInit(): void {
