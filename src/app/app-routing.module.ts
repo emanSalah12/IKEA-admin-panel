@@ -4,8 +4,6 @@ import { MainLayoutComponent } from './components/layout/main-layout/main-layout
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
-import { AddNewProductComponent } from './pages/add-new-product/add-new-product.component';
 
 const routes: Routes = [
   {
@@ -15,8 +13,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Orders', component: OrdersComponent },
-      {path: 'Products', component:ProductTableComponent},
-      {path: 'AddNewProduct', component: AddNewProductComponent},
+      
       {
         path: 'Products',
         loadChildren: () =>

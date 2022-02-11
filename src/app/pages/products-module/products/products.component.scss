@@ -1,32 +1,30 @@
-$green:#07be6e;
-$redBright:#f9423c;
 
-table {
-    width: 100%;
+.parent{
+  padding-top: 20px;
+  
+  h3{
+    font-size: 25px;
+  font-weight: bold;
+  text-align: center;
   }
 
-.status{
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: center;
-  border-radius: 0.25rem;
-  border: 1px solid transparent;
-  width: 65px
+  .btnTop{
+    padding: 8px 27px;
+    margin: 20px 0px;
+  }
+
+  table {
+    width: 100%;
+    box-shadow: 3px 3px 3px 3px;
+
+    td, th{padding: 6px 30px;}
+
+    .table-head{font-size: 17px;}
+
+    .bttn{
+      padding: 6px 10px;
+      margin-right: 10px;
+    }
+}
 }
 
-.completed{
-  @extend .status;
-  border-color: $green;
-  color: $green;
-}
-
-.pending{
-  @extend .status;
-  border-color: $redBright;
-  color:  $redBright;
-}
