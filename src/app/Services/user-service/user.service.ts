@@ -121,25 +121,24 @@ export class UserService {
   // matchingUsers: Observable<Iuser[]>;
   private usersCollection: AngularFirestoreCollection<Iuser>;
 
-  constructor(
-    private firestore: AngularFirestore
-  ) {
+  constructor(private firestore: AngularFirestore) {
     this.usersCollection = firestore.collection<Iuser>('users');
     this.listOfUsers = this.usersCollection.valueChanges();
   }
 
-  getAllUsers():Observable<Iuser[]>{
+  get getAllUsers(): Observable<Iuser[]> {
     return this.listOfUsers;
   }
+
   getMatchingUsers(searchText: string): Iuser[] {
     var matchingusers = [] as Iuser[];
-    this.listOfUsers.subscribe((users)=>{
+    this.listOfUsers.subscribe((users) => {
       users.find((user) => {
         var fullname = `${user.FirstName} ${user.LastName}`.toLocaleLowerCase();
         if (fullname.includes(searchText.toLocaleLowerCase())) {
           matchingusers.push(user);
         }
-      })
+      });
     });
     return matchingusers;
   }
