@@ -29,16 +29,20 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.adminServ.isLogged) {
-          resolve(true);
-        } else {
-          alert(`You must log in first so you can go to ${state.url}`);
-          localStorage.setItem('routeURL', state.url);
-          this.router.navigate(['/Login']);
-          resolve(false);
-        }
-      }, 2000);
+      if (this.adminServ.isLogged) {
+        resolve(true);
+      } else {
+        setTimeout(() => {
+          if (this.adminServ.isLogged) {
+            resolve(true);
+          } else {
+            localStorage.setItem('routeURL', state.url);
+            alert(`You must log in first so you can go to ${state.url}`);
+            this.router.navigate(['/Login']);
+            resolve(false);
+          }
+        }, 2000);
+      }
     });
   }
 }
