@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Iuser } from 'src/app/Models/iuser';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { UserService } from 'src/app/Services/user-service/user.service';
@@ -10,8 +10,13 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+<<<<<<< HEAD
   listOfUsers: Iuser[]=[];
   listOfAdmins: IAdmin[];
+=======
+  listOfUsers: Iuser[];
+  listOfAdmins!: IAdmin[];
+>>>>>>> main
   searchText: string;
   displayedColumns: string[] = [
     'position',
@@ -29,10 +34,13 @@ export class UsersComponent implements OnInit {
     this.userService.getAllUsers().subscribe((users)=>{
       this.listOfUsers = users;
     });
-    this.listOfAdmins = this.adminService.getAllAdmins();
     this.searchText = '';
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.adminService.getAdmins.subscribe((admins) => {
+      this.listOfAdmins = admins;
+    });
+  }
   onTextChange() {
     if (this.searchText == '') {
       this.userService.getAllUsers().subscribe((users)=>{

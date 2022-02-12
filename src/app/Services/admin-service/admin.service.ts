@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -39,20 +39,12 @@ export class AdminService {
     this.admins = this.adminsCollection.valueChanges();
   }
 
-  getAllAdmins(): IAdmin[] {
-    this.admins.subscribe((value) => {
-      this.listOfAdmins = value;
-    });
-    return this.listOfAdmins;
-  }
-
   get getAdmins(): Observable<IAdmin[]> {
     return this.admins;
   }
 
   addAdmin(admin: IAdmin) {
-    this.listOfAdmins.push(admin);
-    // console.log(this.listOfAdmins);
+    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set(admin);
   }
 
   async login(email: string, password: string) {

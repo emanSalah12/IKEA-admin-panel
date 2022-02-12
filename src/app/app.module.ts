@@ -16,7 +16,6 @@ import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { LogoutDialogComponent } from './components/layout/logout-dialog/logout-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +30,6 @@ import { FormsModule } from '@angular/forms';
     UsersComponent,
     OrdersComponent,
     LoginComponent,
-    LogoutDialogComponent,
   ],
   imports: [
     BrowserModule,
