@@ -10,7 +10,7 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  listOfUsers: Iuser[];
+  listOfUsers: Iuser[]=[];
   listOfAdmins: IAdmin[];
   searchText: string;
   displayedColumns: string[] = [
@@ -26,15 +26,20 @@ export class UsersComponent implements OnInit {
     private userService: UserService,
     private adminService: AdminService
   ) {
-    this.listOfUsers = this.userService.getAllUsers();
+    this.userService.getAllUsers().subscribe((users)=>{
+      this.listOfUsers = users;
+    });
     this.listOfAdmins = this.adminService.getAllAdmins();
     this.searchText = '';
   }
   ngOnInit(): void {}
   onTextChange() {
     if (this.searchText == '') {
-      this.listOfUsers = this.userService.getAllUsers();
-    } else {
+      this.userService.getAllUsers().subscribe((users)=>{
+        this.listOfUsers = users;
+      });
+    } 
+    else {
       this.listOfUsers = this.userService.getMatchingUsers(this.searchText);
     }
   }
@@ -49,7 +54,6 @@ export class UsersComponent implements OnInit {
       id: user.id,
       Email: user.Email,
       FullName: `${user.FirstName} ${user.LastName}`,
-      // Password: user.Password,
     });
   }
 }
