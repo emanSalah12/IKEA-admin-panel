@@ -10,13 +10,8 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-<<<<<<< HEAD
   listOfUsers: Iuser[]=[];
-  listOfAdmins: IAdmin[];
-=======
-  listOfUsers: Iuser[];
-  listOfAdmins!: IAdmin[];
->>>>>>> main
+  listOfAdmins: IAdmin[]=[];
   searchText: string;
   displayedColumns: string[] = [
     'position',
