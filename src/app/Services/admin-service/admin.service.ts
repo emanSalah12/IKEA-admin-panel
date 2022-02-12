@@ -11,21 +11,12 @@ import {
   providedIn: 'root',
 })
 export class AdminService {
-  listOfAdmins: IAdmin[] = [
-    // {
-    //   id: '2',
-    //   FullName: 'Raghda Mohsen',
-    //   Email: 'Raghda@gmail.com',
-    //   Password: '1234',
-    // },
-  ];
-
   private adminsCollection: AngularFirestoreCollection<IAdmin>;
   admins: Observable<IAdmin[]>;
 
   routeURL: string = '';
 
-  private isLoggedSubject: BehaviorSubject<boolean>;
+  public isLoggedSubject: BehaviorSubject<boolean>;
 
   email: string = '';
 
@@ -60,20 +51,13 @@ export class AdminService {
       .catch((err) => {
         console.log(err);
       });
-
-    // this.routeURL = await this.firebaseAuth.onAuthStateChanged(user=> user && )
   }
 
   logout() {
-    // localStorage.removeItem('token');
-    // this.isLoggedSubject.next(false);
-
-    // this.email = '';
-    // this.password = '';
-
     this.firebaseAuth.signOut();
     localStorage.removeItem('UID');
     this.isLoggedSubject.next(false);
+    // this.email = '';
   }
 
   get isLogged(): boolean {
