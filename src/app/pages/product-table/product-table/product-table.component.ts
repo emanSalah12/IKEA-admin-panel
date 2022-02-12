@@ -33,7 +33,7 @@ export class ProductTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.prodListMatchCategID = this.productServices.getAllProducts();
+    // this.prodListMatchCategID = this.productServices.getAllProducts();
   }
 
   ngOnChanges() {

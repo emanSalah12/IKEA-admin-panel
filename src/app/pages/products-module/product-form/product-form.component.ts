@@ -15,7 +15,7 @@ export class ProductFormComponent implements OnInit {
   @ViewChild('prdQuan') changeQuan !:ElementRef
   @ViewChild('prdPrice') changePrice !:ElementRef
   @ViewChild('prdMaterial') changeMaterial !:ElementRef
-  @ViewChild('prdAval') changeImg !:ElementRef
+  @ViewChild('prdAval') changeAval !:ElementRef
 
   constructor(
     private productServices : ProductsCrudService
@@ -27,7 +27,7 @@ export class ProductFormComponent implements OnInit {
   addNewProduct(IDp: string, nameProd: string, quanPrpd: string, priceProd: string, materPrd:string, avlProd: string)
   {
     this.newProdList = {
-      ID: IDp,
+      id: IDp,
       Name: nameProd,
       Quantity: Number(quanPrpd),
       Price: Number(priceProd),
@@ -46,6 +46,6 @@ export class ProductFormComponent implements OnInit {
     this.changeQuan.nativeElement.value = ''
     this.changePrice.nativeElement.value = ''
     this.changeMaterial.nativeElement.value = ''
-    this.changeImg.nativeElement.value = ''
+    this.changeAval.nativeElement.value = ''
   }
 }

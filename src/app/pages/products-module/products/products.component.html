@@ -1,9 +1,15 @@
 <div class="parent">
   <h3>Products</h3>
 
-<button type="button" class="btnTop btn-primary" [routerLink]="['/Products/ProductForm']">Add Product</button>
+  <button
+    type="button"
+    class="btnTop btn-primary"
+    [routerLink]="['/Products/ProductForm']"
+  >
+    Add Product
+  </button>
 
-<table class="table">
+  <table class="table">
     <thead class="table-dark">
       <tr class="table-head">
         <th scope="col">ID</th>
@@ -16,19 +22,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prd of prodListMatchCategID">
-        <td> {{prd.id}} </td>
-        <td> {{prd.Name}} </td>
-        <td> {{prd.Price}} </td>
-        <td> {{prd.Quantity}} </td>
-        <td> {{prd.Material}} </td>
-        <td> {{prd.Online}} </td>
+      <tr *ngFor="let prd of listOfProducts">
+        <td>{{ prd.id }}</td>
+        <td>{{ prd.Name }}</td>
+        <td>{{ prd.Price }}</td>
+        <td>{{ prd.Quantity }}</td>
+        <td>{{ prd.Material }}</td>
+        <td>{{ prd.Online }}</td>
         <td class="d-flex">
-            <button type="button" class="btn1 bttn btn-success">Update</button>
-            <button type="button" class="btn2 bttn btn-danger">Delete</button>
+          <button
+            type="button"
+            class="btn1 bttn btn-success"
+            
+          >
+            Update
+          </button>
+          <button type="button" class="btn2 bttn btn-danger">Delete</button>
         </td>
       </tr>
-      
     </tbody>
   </table>
 </div>
