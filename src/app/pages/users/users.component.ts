@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { _MatTableDataSource } from '@angular/material/table';
+import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component';
 import { Iuser } from 'src/app/Models/iuser';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { UserService } from 'src/app/Services/user-service/user.service';
@@ -10,8 +14,8 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  listOfUsers: Iuser[];
-  listOfAdmins!: IAdmin[];
+  listOfUsers: Iuser[] = [];
+  listOfAdmins: IAdmin[] = [];
   searchText: string;
   displayedColumns: string[] = [
     'position',
@@ -22,23 +26,32 @@ export class UsersComponent implements OnInit {
     'BirthDate',
     'addAdmin',
   ];
+  dataSource: any;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(
     private userService: UserService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private dialog: MatDialog
   ) {
-    this.listOfUsers = this.userService.getAllUsers();
-    this.searchText = '';
-  }
-  ngOnInit(): void {
+    this.userService.getAllUsers().subscribe((users) => {
+      this.listOfUsers = users;
+      this.dataSource = new _MatTableDataSource(this.listOfUsers);
+      this.dataSource.paginator = this.paginator;
+    });
     this.adminService.getAdmins.subscribe((admins) => {
       this.listOfAdmins = admins;
     });
+    this.searchText = '';
   }
+
+  ngOnInit(): void {}
+
   onTextChange() {
     if (this.searchText == '') {
-      this.listOfUsers = this.userService.getAllUsers();
+      this.dataSource = new _MatTableDataSource(this.listOfUsers);
     } else {
-      this.listOfUsers = this.userService.getMatchingUsers(this.searchText);
+      this.dataSource.filter = this.searchText.trim().toLowerCase();
     }
   }
   checkIfAdmin(userId: string) {
@@ -48,11 +61,22 @@ export class UsersComponent implements OnInit {
     return false;
   }
   addNewAdmin(user: Iuser) {
-    this.adminService.addAdmin({
-      id: user.id,
-      Email: user.Email,
-      FullName: `${user.FirstName} ${user.LastName}`,
-      // Password: user.Password,
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      data: {
+        title: 'Add Admin',
+        content: 'Are you sure you want to add this user as an admin?',
+        yes: 'Yes',
+        no: 'cancel',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 'true') {
+        this.adminService.addAdmin({
+          id: user.id,
+          Email: user.Email,
+          FullName: `${user.FirstName} ${user.LastName}`,
+        });
+      }
     });
   }
 }
