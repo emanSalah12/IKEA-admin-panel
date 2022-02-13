@@ -13,6 +13,7 @@ import {
 export class AdminService {
   private adminsCollection: AngularFirestoreCollection<IAdmin>;
   admins: Observable<IAdmin[]>;
+  private adminsIds: string[];
 
   routeURL: string = '';
 
@@ -27,12 +28,14 @@ export class AdminService {
     this.isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
     this.adminsCollection = firestore.collection<IAdmin>('Admins');
+    this.adminsIds=[];
     this.admins = this.adminsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as IAdmin;
           const id = a.payload.doc.id;
           data.id=id;
+          this.adminsIds.push(id);
           return data;
         })
       )
@@ -41,6 +44,10 @@ export class AdminService {
 
   get getAdmins(): Observable<IAdmin[]> {
     return this.admins;
+  }
+
+  get getAdminsIds():string[]{
+    return this.adminsIds;
   }
 
   addAdmin(admin: IAdmin) {
