@@ -12,12 +12,6 @@ import { OrdersService } from 'src/app/Services/orders.service';
 import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component';
 // import { LogoutDialogComponent } from './../logout-dialog/logout-dialog.component';//import our Dialog Component
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 @Component({
   selector: 'app-orders',
@@ -35,16 +29,18 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   ordersList?: IOrder[];
   dataSource: any;
+  loading:boolean=true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private orders: OrdersService, private dialog: MatDialog) {
 
-    this.orders.getAllOrders().subscribe(arg => {
-      console.log("observables",arg);
-      this.ordersList = arg;    
-      this.dataSource = new _MatTableDataSource(this.ordersList);
-      this.dataSource.paginator = this.paginator;
-
-    });
+      this.orders.getAllOrders()?.subscribe(arg => {
+        console.log("observables",arg);
+        this.ordersList = arg;    
+        this.dataSource = new _MatTableDataSource(this.ordersList);
+        this.dataSource.paginator = this.paginator;
+        this.loading=false
+  
+      });   
   }
 
   ngOnInit(): void {

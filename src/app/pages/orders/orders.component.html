@@ -3,7 +3,10 @@
 <div class="mat-elevation-z8 py-3" [style.background]="'white'">
   <h1 class="px-3"> Orders List</h1>
   <hr />
-  <table mat-table [dataSource]="dataSource" class="px-3">
+
+  <mat-spinner [hidden]="!loading" diameter="30" class="mx-auto"></mat-spinner>
+  
+  <table mat-table [dataSource]="dataSource" [hidden]="loading" class="px-3" >
 
     <ng-container matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef> # </th>
@@ -17,7 +20,7 @@
     <!-- TODO fix date 1992 -->
     <ng-container matColumnDef="purchaseDate">
       <th mat-header-cell *matHeaderCellDef> Purchase Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.CreatedAt.seconds| date:'MMM d, y ' }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.CreatedAt.seconds *86400| date:'MMM d, y ' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -31,7 +34,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> completeOrder </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button class="text-success" [hidden]="element.Status" (click)="completeOrder(element)">
+        <button mat-icon-button class="aqua-col" [hidden]="element.Status" (click)="completeOrder(element)">
           <mat-icon>add_task</mat-icon>
         </button>
       </td>
@@ -40,7 +43,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="ordersList?.length" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]"
+  <mat-paginator [hidden]="loading"  [length]="ordersList?.length" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]"
     aria-label="Select page">
   </mat-paginator>
 </div>

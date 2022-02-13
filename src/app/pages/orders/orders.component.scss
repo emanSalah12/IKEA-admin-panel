@@ -1,4 +1,4 @@
-$green:#07be6e;
+$aqua:#04c9b7;
 $redBright:#f9423c;
 
 table {
@@ -21,12 +21,18 @@ table {
 
 .completed{
   @extend .status;
-  border-color: $green;
-  color: $green;
+  border-color: $aqua;
+  color: $aqua;
 }
-
+.aqua-col{
+  color: $aqua;
+}
 .pending{
   @extend .status;
   border-color: $redBright;
   color:  $redBright;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: $aqua;
 }
