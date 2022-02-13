@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -27,7 +27,16 @@ export class AdminService {
     this.isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
     this.adminsCollection = firestore.collection<IAdmin>('Admins');
-    this.admins = this.adminsCollection.valueChanges();
+    this.admins = this.adminsCollection.snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as IAdmin;
+          const id = a.payload.doc.id;
+          data.id=id;
+          return data;
+        })
+      )
+    );
   }
 
   get getAdmins(): Observable<IAdmin[]> {
@@ -35,7 +44,7 @@ export class AdminService {
   }
 
   addAdmin(admin: IAdmin) {
-    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set(admin);
+    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({FullName:admin.FullName,Email:admin.Email});
   }
 
   async login(email: string, password: string) {
