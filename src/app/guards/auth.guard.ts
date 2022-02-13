@@ -10,14 +10,24 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../Services/admin-service/admin.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private _snackBar: MatSnackBar
   ) {}
 
   canActivate(
@@ -40,8 +50,20 @@ export class AuthGuard implements CanActivate {
             resolve(true);
           } else {
             localStorage.setItem('routeURL', state.url);
-            alert(`You must log in first so you can go to ${state.url}`);
+
             this.router.navigate(['/Login']);
+
+            this._snackBar.open(
+              `You must log in first so you can go to ${state.url}`,
+              '',
+              {
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+                panelClass: ['snackbar-alert'],
+                duration: 3000,
+              }
+            );
+
             resolve(false);
           }
         }, 2500);
