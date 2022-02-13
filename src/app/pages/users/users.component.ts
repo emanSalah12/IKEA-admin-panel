@@ -28,6 +28,7 @@ export class UsersComponent implements OnInit {
   ];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  loading: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -42,6 +43,7 @@ export class UsersComponent implements OnInit {
       this.listOfUsers = users;
       this.dataSource = new _MatTableDataSource(this.listOfUsers);
       this.dataSource.paginator = this.paginator;
+      this.loading = false;
     });
     this.adminService.getAdmins.subscribe((admins) => {
       this.listOfAdmins = admins;

@@ -18,7 +18,9 @@
       />
     </div>
   </form>
-  <table mat-table [dataSource]="dataSource">
+  <mat-spinner [hidden]="!loading" diameter="30" class="mx-auto"></mat-spinner>
+
+  <table mat-table [dataSource]="dataSource" [hidden]="loading">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -66,7 +68,7 @@
           *ngIf="!checkIfAdmin(element.id)"
           (click)="addNewAdmin(element)"
         >
-          <mat-icon aria-hidden="false" class="text-success"
+          <mat-icon aria-hidden="false" [style.color]="'#04c9b7'"
             >add_moderator</mat-icon
           >
         </button>
