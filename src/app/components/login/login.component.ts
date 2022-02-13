@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     this.adminServ.getAdmins.subscribe((admins) => {
       this.admins = admins;
     });
+
+    this.adminServ.isLogged
+      ? this.router.navigate(['/Dashboard'])
+      : this.router.navigate(['/Login']);
   }
 
   login() {

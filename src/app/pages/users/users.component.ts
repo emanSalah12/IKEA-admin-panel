@@ -34,7 +34,11 @@ export class UsersComponent implements OnInit {
     private adminService: AdminService,
     private dialog: MatDialog
   ) {
-    this.userService.getAllUsers().subscribe((users) => {
+    this.searchText = '';
+  }
+
+  ngOnInit(): void {
+    this.userService.getAllUsers.subscribe((users) => {
       this.listOfUsers = users;
       this.dataSource = new _MatTableDataSource(this.listOfUsers);
       this.dataSource.paginator = this.paginator;
@@ -42,10 +46,7 @@ export class UsersComponent implements OnInit {
     this.adminService.getAdmins.subscribe((admins) => {
       this.listOfAdmins = admins;
     });
-    this.searchText = '';
   }
-
-  ngOnInit(): void {}
 
   onTextChange() {
     if (this.searchText == '') {

@@ -29,7 +29,7 @@ export class UserService {
     this.matchingUsers = this.listOfUsers;
   }
 
-  getAllUsers(): Observable<Iuser[]> {
+  get getAllUsers(): Observable<Iuser[]> {
     return this.listOfUsers;
   }
 }
