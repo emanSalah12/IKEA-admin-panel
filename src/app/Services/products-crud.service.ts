@@ -122,10 +122,18 @@ export class ProductsCrudService {
     return this.firestoreServices.collection('Products').add(record);
   }
 
-  // getProdById(prdId: string): IProduct | null {
-  //   let product = this.listOfProducts.find((prod) => prod.id == prdId);
-  //   return product ? product : null;
-  // }
+  getProdById(prdId: string): IProduct | null {
+    let product = this.listOfProducts.find((prod) => prod.id == prdId);
+    return product ? product : null;
+  }
+
+  updateProductByServices(updatelistOfProducts: IProduct) {
+    for (let i in this.listOfProducts) {
+      if (this.listOfProducts[i].id == updatelistOfProducts.id) {
+        this.listOfProducts[i] = updatelistOfProducts;
+      }
+    }
+  }
 
   // getMatchingproducts(searchText: string): IProduct[] {
   //   var matchingProducts = [] as IProduct[];
