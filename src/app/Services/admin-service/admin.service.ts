@@ -44,7 +44,7 @@ export class AdminService {
   }
 
   addAdmin(admin: IAdmin) {
-    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({FullName:admin.FullName,Email:admin.Email});
+    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({FirstName:admin.FirstName,LastName:admin.LastName,Email:admin.Email});
   }
 
   async login(email: string, password: string) {

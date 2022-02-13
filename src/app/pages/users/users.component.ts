@@ -51,6 +51,7 @@ export class UsersComponent implements OnInit {
   onTextChange() {
     if (this.searchText == '') {
       this.dataSource = new _MatTableDataSource(this.listOfUsers);
+      this.dataSource.paginator = this.paginator;
     } else {
       this.dataSource.filter = this.searchText.trim().toLowerCase();
     }
@@ -75,7 +76,8 @@ export class UsersComponent implements OnInit {
         this.adminService.addAdmin({
           id: user.id,
           Email: user.Email,
-          FullName: `${user.FirstName} ${user.LastName}`,
+          FirstName:user.FirstName, 
+          LastName:user.LastName
         });
       }
     });
