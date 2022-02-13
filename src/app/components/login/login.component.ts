@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
@@ -34,8 +33,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    private _snackBar: MatSnackBar,
-    @Inject(DOCUMENT) private document: Document
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -48,10 +46,6 @@ export class LoginComponent implements OnInit {
     this.adminServ.isLogged
       ? this.router.navigate(['/Dashboard'])
       : this.router.navigate(['/Login']);
-
-    setTimeout(() => {
-      this.document.body.click(); // To make sure the validation works correctly
-    }, 200);
   }
 
   openSnackBar(loginErrMessage: string) {
