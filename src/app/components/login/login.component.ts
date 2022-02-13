@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit {
       ? this.router.navigate(['/Dashboard'])
       : this.router.navigate(['/Login']);
 
-    this.document.body.click();
+    setTimeout(() => {
+      this.document.body.click(); // To make sure the validation works correctly
+    }, 200);
   }
 
   openSnackBar(loginErrMessage: string) {
