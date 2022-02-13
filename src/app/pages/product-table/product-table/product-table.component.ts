@@ -2,18 +2,21 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { IProduct } from 'src/app/Models/iProducts';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 
+
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  selector: 'app-product-table',
+  templateUrl: './product-table.component.html',
+  styleUrls: ['./product-table.component.scss']
 })
-export class ProductsComponent implements OnInit, OnChanges {
+
+export class ProductTableComponent implements OnInit, OnChanges {
+
   prdList: IProduct[];
   prodListMatchCategID: IProduct[] = [];
-  listOfProducts: IProduct[];
-  searchText: string;
 
-  constructor(private productServices: ProductsCrudService) {
+  constructor(
+    private productServices: ProductsCrudService
+  ) { 
     // this.prdList = [
     //   {id: '1h', Name: 'first', Price: 1.0079, Quantity: 12, Material: 'cotton', Online: true},
     //   {id: '2h', Name: 'second', Price: 4.0026, Quantity: 12, Material: 'cotton', Online: true},
@@ -26,14 +29,16 @@ export class ProductsComponent implements OnInit, OnChanges {
     //   {id: '9h', Name: 'ninth', Price: 18.9984, Quantity: 1, Material: 'cotton', Online: true},
     //   {id: '1h', Name: 'tenth', Price: 20.1797, Quantity: 10, Material: 'cotton', Online: true},
     // ];
+    
   }
 
   ngOnInit(): void {
     // this.prodListMatchCategID = this.productServices.getAllProducts();
-    this.productServices.getAllProducts().subscribe((Products) => {
-      this.listOfProducts = Products;
-    });
   }
 
-  ngOnChanges() {}
+  ngOnChanges() {
+    
+  }
+
+
 }

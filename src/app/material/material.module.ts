@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatTableModule} from '@angular/material/table';
-import {MatIconModule} from '@angular/material/icon';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReusableDialogComponent } from './materialComponents/reusable-dialog/reusable-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
-const MaterialComponents=[
+const MaterialComponents = [
   MatButtonModule,
   MatCardModule,
   MatTableModule,
@@ -17,14 +17,12 @@ const MaterialComponents=[
   MatPaginatorModule,
   MatDialogModule,
   MatProgressSpinnerModule,
-  MatSelectModule
-]
+  MatSelectModule,
+];
 
 @NgModule({
   imports: [MaterialComponents],
-  exports:[MaterialComponents],
-  declarations: [
-    ReusableDialogComponent
-  ]
+  exports: [MaterialComponents],
+  declarations: [ReusableDialogComponent],
 })
-export class MaterialModule { }
+export class MaterialModule {}

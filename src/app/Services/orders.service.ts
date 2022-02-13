@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IOrder } from '../Models/iorder';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -25,14 +25,13 @@ export class OrdersService {
         });
       })
     );
- 
   }
 
   getAllOrders(): Observable<IOrder[]> {
     return this.orders;
   }
 
-  completeOrder(id:string){
-    this.firestore.doc(`Orders/${id}`).update({Status:true});
+  completeOrder(id: string) {
+    this.firestore.doc(`Orders/${id}`).update({ Status: true });
   }
 }

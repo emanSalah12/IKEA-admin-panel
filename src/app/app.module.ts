@@ -20,6 +20,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 
+import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
+// import { environment } from 'src/environments/environment.prod';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     UsersComponent,
     OrdersComponent,
     LoginComponent,
+    ProductTableComponent,
   ],
   imports: [
     BrowserModule,

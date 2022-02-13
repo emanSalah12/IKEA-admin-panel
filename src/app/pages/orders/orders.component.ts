@@ -1,10 +1,4 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { _MatTableDataSource } from '@angular/material/table';
 import { IOrder } from 'src/app/Models/iorder';
@@ -29,24 +23,21 @@ export class OrdersComponent implements OnInit {
 
   ordersList?: IOrder[];
   dataSource: any;
-  loading:boolean=true;
+  loading: boolean = true;
   selected = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private orders: OrdersService, private dialog: MatDialog) {
-
-      this.orders.getAllOrders()?.subscribe(arg => {
-        console.log("observables",arg);
-        this.ordersList = arg;    
-        this.dataSource = new _MatTableDataSource(this.ordersList);
-        this.dataSource.paginator = this.paginator;
-        this.loading=false
-  
-      });   
+    this.orders.getAllOrders()?.subscribe((arg) => {
+      console.log('observables', arg);
+      this.ordersList = arg;
+      this.dataSource = new _MatTableDataSource(this.ordersList);
+      this.dataSource.paginator = this.paginator;
+      this.loading = false;
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   completeOrder(order: IOrder) {
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -62,9 +53,10 @@ export class OrdersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`); //'true' or 'false'
 
-      if (result == 'true') {  //confirm case
+      if (result == 'true') {
+        //confirm case
         this.confirmComplete(order);
-      }else{
+      } else {
         console.log('cancelled');
       }
     });
@@ -74,8 +66,7 @@ export class OrdersComponent implements OnInit {
     this.orders.completeOrder(order.id);
   }
 
-  filter(){
-    this.dataSource.filter = this.selected.trim().toLowerCase();;
+  filter() {
+    this.dataSource.filter = this.selected.trim().toLowerCase();
   }
-
 }
