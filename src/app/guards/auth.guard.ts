@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../Services/admin-service/admin.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+import { LoadingService } from './../Services/loading.service';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -27,7 +28,8 @@ export class AuthGuard implements CanActivate {
     private adminServ: AdminService,
     private router: Router,
     private auth: AngularFireAuth,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private loadingServ: LoadingService
   ) {}
 
   canActivate(
@@ -42,7 +44,11 @@ export class AuthGuard implements CanActivate {
       if (this.adminServ.isLogged) {
         resolve(true);
       } else {
+        this.loadingServ.loadingSubject.next(true);
+
         setTimeout(() => {
+          this.loadingServ.loadingSubject.next(false);
+
           if (this.adminServ.errorMessage !== undefined) {
             console.log('Guard ERROR: ' + this.adminServ.errorMessage);
             this.adminServ.errorMessage = undefined;

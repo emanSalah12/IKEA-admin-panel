@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
+import { LoadingService } from './../../Services/loading.service';
 
 import {
   MatSnackBar,
@@ -19,7 +20,7 @@ enum loginError {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   isLogged: boolean = false;
   isAdmin: boolean = false;
   admins!: IAdmin[];
@@ -27,13 +28,16 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
 
+  loading: boolean = true;
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private loadingServ: LoadingService
   ) {}
 
   ngOnInit() {
@@ -46,6 +50,14 @@ export class LoginComponent implements OnInit {
     this.adminServ.isLogged
       ? this.router.navigate(['/Dashboard'])
       : this.router.navigate(['/Login']);
+
+    this.loadingServ.getLoadingStatus.subscribe((status) => {
+      this.loading = status;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.loadingServ.loadingSubject.next(false);
   }
 
   openSnackBar(loginErrMessage: string) {
@@ -58,6 +70,8 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
+    this.loading = true;
+
     this.isAdmin = this.admins.some((admin) => admin.Email === this.email);
 
     if (this.isAdmin) {
@@ -65,6 +79,8 @@ export class LoginComponent implements OnInit {
       this.isLogged = this.adminServ.isLogged;
 
       if (this.isLogged) {
+        this.loadingServ.loadingSubject.next(false);
+
         if (localStorage.getItem('routeURL')) {
           this.router.navigate([`${localStorage.getItem('routeURL')}`]);
           localStorage.removeItem('routeURL');
@@ -73,9 +89,11 @@ export class LoginComponent implements OnInit {
         }
       } else {
         this.openSnackBar(loginError.WRONG_PASSWORD);
+        this.loadingServ.loadingSubject.next(false);
       }
     } else {
       this.openSnackBar(loginError.NOT_ADMIN);
+      this.loadingServ.loadingSubject.next(false);
     }
   }
 }
