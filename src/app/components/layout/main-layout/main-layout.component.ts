@@ -22,19 +22,18 @@ export class MainLayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.adminServ.getLoggedStatus.subscribe((status) => {
-      this.isLogged = status;
-
-      if (this.isLogged) {
-        if (localStorage.getItem('email'))
-          this.email = localStorage.getItem('email')!;
-        else this.email = this.adminServ.email;
-        localStorage.setItem('email', this.email);
-      } else {
-        this.email = '';
-        localStorage.removeItem('email');
-      }
-    });
+    // this.adminServ.getLoggedStatus.subscribe((status) => {
+    //   this.isLogged = status;
+    //   if (this.isLogged) {
+    //     if (localStorage.getItem('email'))
+    //       this.email = localStorage.getItem('email')!;
+    //     else this.email = this.adminServ.email;
+    //     localStorage.setItem('email', this.email);
+    //   } else {
+    //     this.email = '';
+    //     localStorage.removeItem('email');
+    //   }
+    // });
   }
 
   openLogoutDialog() {

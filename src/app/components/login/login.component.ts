@@ -9,6 +9,11 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 
+enum loginError {
+  NOT_ADMIN = 'You are not an admin',
+  WRONG_PASSWORD = 'The password is wrong or the email does not have a password',
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,32 +48,34 @@ export class LoginComponent implements OnInit {
       : this.router.navigate(['/Login']);
   }
 
-  openSnackBar() {
-    this._snackBar.open('You are not an admin!', '', {
+  openSnackBar(loginErrMessage: string) {
+    this._snackBar.open(loginErrMessage, '', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      panelClass: ['snackbar-warning'],
+      panelClass: ['snackbar-alert'],
       duration: 3000,
     });
   }
 
-  login() {
-    console.log(this.admins);
-    console.log(this.email);
-
+  async login() {
     this.isAdmin = this.admins.some((admin) => admin.Email === this.email);
 
     if (this.isAdmin) {
-      this.adminServ.login(this.email, this.password);
+      await this.adminServ.login(this.email, this.password);
       this.isLogged = this.adminServ.isLogged;
-      if (localStorage.getItem('routeURL')) {
-        this.router.navigate([`${localStorage.getItem('routeURL')}`]);
-        localStorage.removeItem('routeURL');
+
+      if (this.isLogged) {
+        if (localStorage.getItem('routeURL')) {
+          this.router.navigate([`${localStorage.getItem('routeURL')}`]);
+          localStorage.removeItem('routeURL');
+        } else {
+          this.router.navigate(['/Dashboard']);
+        }
       } else {
-        this.router.navigate(['/Dashboard']);
+        this.openSnackBar(loginError.WRONG_PASSWORD);
       }
     } else {
-      this.openSnackBar();
+      this.openSnackBar(loginError.NOT_ADMIN);
     }
   }
 }

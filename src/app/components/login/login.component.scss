@@ -42,11 +42,11 @@
 }
 
 ::ng-deep snack-bar-container {
-  &.snackbar-warning {
-    background: #fef1e1;
+  &.snackbar-alert {
+    background: #fcd7de;
 
     .mat-simple-snackbar {
-      color: #fcb86d;
+      color: #f5375b;
       font-weight: 500;
 
       .mat-simple-snack-bar-content {

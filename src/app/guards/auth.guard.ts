@@ -33,7 +33,10 @@ export class AuthGuard implements CanActivate {
         resolve(true);
       } else {
         setTimeout(() => {
-          if (this.adminServ.isLogged) {
+          if (this.adminServ.errorMessage !== undefined) {
+            console.log('Guard ERROR: ' + this.adminServ.errorMessage);
+            this.adminServ.errorMessage = undefined;
+          } else if (this.adminServ.isLogged) {
             resolve(true);
           } else {
             localStorage.setItem('routeURL', state.url);
@@ -41,7 +44,7 @@ export class AuthGuard implements CanActivate {
             this.router.navigate(['/Login']);
             resolve(false);
           }
-        }, 2000);
+        }, 2500);
       }
     });
   }

@@ -15,6 +15,8 @@ export class AdminService {
   admins: Observable<IAdmin[]>;
 
   routeURL: string = '';
+  errorMessage!: Error | undefined;
+  accessToken: string = '';
 
   public isLoggedSubject: BehaviorSubject<boolean>;
 
@@ -32,7 +34,7 @@ export class AdminService {
         actions.map((a) => {
           const data = a.payload.doc.data() as IAdmin;
           const id = a.payload.doc.id;
-          data.id=id;
+          data.id = id;
           return data;
         })
       )
@@ -44,33 +46,41 @@ export class AdminService {
   }
 
   addAdmin(admin: IAdmin) {
-    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({FullName:admin.FullName,Email:admin.Email});
+    this.firestore
+      .collection<IAdmin>('Admins')
+      .doc(admin.id)
+      .set({ FullName: admin.FullName, Email: admin.Email });
   }
 
   async login(email: string, password: string) {
     await this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         this.email = email;
-        // this.password = password;
+
+        await userCredential.user?.getIdTokenResult().then((token) => {
+          this.accessToken = token.token;
+          localStorage.setItem('token', this.accessToken);
+        });
 
         this.isLoggedSubject.next(true);
-        localStorage.setItem('UID', JSON.stringify(userCredential.user?.uid));
       })
       .catch((err) => {
-        console.log(err);
+        this.errorMessage = err.code;
+        console.log('Service error: ' + this.errorMessage);
       });
   }
 
   logout() {
-    this.firebaseAuth.signOut();
-    localStorage.removeItem('UID');
+    this.firebaseAuth.signOut().catch((err) => {
+      console.log('Logout error:' + err);
+    });
+    localStorage.removeItem('token');
     this.isLoggedSubject.next(false);
-    // this.email = '';
   }
 
   get isLogged(): boolean {
-    return localStorage.getItem('UID') ? true : false;
+    return localStorage.getItem('token') ? true : false;
   }
 
   get getLoggedStatus(): Observable<boolean> {
