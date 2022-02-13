@@ -2,7 +2,7 @@
   <h3>Products</h3>
 
   <button
-    type="button"
+  
     class="btnTop btn-primary"
     [routerLink]="['/Products/ProductForm']"
   >
@@ -29,13 +29,13 @@
         <td>{{ prd.Online }}</td>
         <td class="d-flex">
           <button
-            type="button"
+          
             class="btn1 bttn btn-success"
-            
+            (click)='editProduct(prd)'
           >
-            Update
+            Edit
           </button>
-          <button type="button" class="btn2 bttn btn-danger">Delete</button>
+          <button class="btn2 bttn btn-danger" (click)='deleteProduct(prd.id)'>Delete</button>
         </td>
       </tr>
     </tbody>

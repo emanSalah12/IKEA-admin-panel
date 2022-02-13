@@ -33,6 +33,20 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
     
   }
 
+  deleteProduct(recordID)
+  {
+    var sureMessage = confirm('Are you sure to delete record of product..!')
+    if(sureMessage)
+    {
+      this.productServices.deleteProduct(recordID)
+    }
+  }
+
+  editProduct(record)
+  {
+
+  }
+
   ngOnInit(): void {
     // this.prodListMatchCategID = this.productServices.getAllProducts();
     this.productServices.getAllProducts().subscribe((Products) => {

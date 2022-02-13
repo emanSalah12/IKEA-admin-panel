@@ -122,6 +122,16 @@ export class ProductsCrudService {
     return this.firestoreServices.collection('Products').add(record);
   }
 
+  // Using firestore to delete any product
+  deleteProduct(recordID){
+    return this.firestoreServices.doc('Products/' + recordID).delete()
+  }
+
+  // Using firestore to delete any product
+  updateProduct(recordID, record){
+    return this.firestoreServices.doc('Products/' + recordID).update(record)
+  }
+
   getProdById(prdId: string): IProduct | null {
     let product = this.listOfProducts.find((prod) => prod.id == prdId);
     return product ? product : null;
