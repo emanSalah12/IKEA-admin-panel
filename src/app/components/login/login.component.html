@@ -31,6 +31,12 @@
         required
         #formpassword="ngModel"
       />
+      <small
+        class="text-danger w-100"
+        [hidden]="formpassword.valid || formpassword.untouched"
+      >
+        Password is required
+      </small>
     </div>
     <div class="form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1" />
