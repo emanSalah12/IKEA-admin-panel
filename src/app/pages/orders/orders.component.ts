@@ -33,17 +33,26 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     'action',
   ];
 
-  ordersList: IOrder[];
+  ordersList?: IOrder[];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private orders: OrdersService, private dialog: MatDialog) {
-    this.ordersList = this.orders.getOrders();
-    this.dataSource = new _MatTableDataSource(this.ordersList);
+
+    this.orders.getAllOrders().subscribe(arg => {
+      console.log("observables",arg);
+      this.ordersList = arg;    
+      this.dataSource = new _MatTableDataSource(this.ordersList);
+      this.dataSource.paginator = this.paginator;
+
+    });
+  }
+
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    console.log(this.paginator);
+    // this.dataSource.paginator = this.paginator;
+    // console.log(this.paginator);
   }
 
   completeOrder(order: IOrder) {
@@ -75,5 +84,4 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {}
 }
