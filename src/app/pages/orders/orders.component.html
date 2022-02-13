@@ -14,10 +14,10 @@
       <th mat-header-cell *matHeaderCellDef> Total Price </th>
       <td mat-cell *matCellDef="let element"> {{element.TotalPrice | currency: "EGP":"code"}} </td>
     </ng-container>
-
+    <!-- TODO fix date 1992 -->
     <ng-container matColumnDef="purchaseDate">
       <th mat-header-cell *matHeaderCellDef> Purchase Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.CreatedAt | date }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.CreatedAt.seconds| date:'MMM d, y ' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -40,7 +40,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator [length]="ordersList.length" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]"
+  <mat-paginator [length]="ordersList?.length" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]"
     aria-label="Select page">
   </mat-paginator>
 </div>
