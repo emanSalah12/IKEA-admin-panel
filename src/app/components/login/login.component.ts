@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
@@ -30,12 +31,11 @@ export class LoginComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  @ViewChild('loginForm') form: ElementRef;
-
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       ? this.router.navigate(['/Dashboard'])
       : this.router.navigate(['/Login']);
 
-    this.form.nativeElement.click(); // To make sure the validation works correctly
+    this.document.body.click();
   }
 
   openSnackBar(loginErrMessage: string) {
