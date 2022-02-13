@@ -18,7 +18,7 @@ import { ReusableDialogComponent } from 'src/app/material/materialComponents/reu
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
-export class OrdersComponent implements OnInit, AfterViewInit {
+export class OrdersComponent implements OnInit {
   displayedColumns: string[] = [
     'index',
     'total',
@@ -30,6 +30,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   ordersList?: IOrder[];
   dataSource: any;
   loading:boolean=true;
+  selected = '';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private orders: OrdersService, private dialog: MatDialog) {
 
@@ -44,11 +46,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    // console.log(this.paginator);
   }
 
   completeOrder(order: IOrder) {
@@ -75,6 +72,10 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   confirmComplete(order: IOrder) {
     this.orders.completeOrder(order.id);
+  }
+
+  filter(){
+    this.dataSource.filter = this.selected.trim().toLowerCase();;
   }
 
 }

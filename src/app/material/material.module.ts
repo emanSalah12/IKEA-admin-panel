@@ -7,6 +7,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReusableDialogComponent } from './materialComponents/reusable-dialog/reusable-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 const MaterialComponents=[
   MatButtonModule,
@@ -16,6 +17,7 @@ const MaterialComponents=[
   MatPaginatorModule,
   MatDialogModule,
   MatProgressSpinnerModule,
+  MatSelectModule
 ]
 
 @NgModule({
