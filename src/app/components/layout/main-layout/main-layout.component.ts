@@ -21,24 +21,9 @@ export class MainLayoutComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    // this.adminServ.getLoggedStatus.subscribe((status) => {
-    //   this.isLogged = status;
-    //   if (this.isLogged) {
-    //     if (localStorage.getItem('email'))
-    //       this.email = localStorage.getItem('email')!;
-    //     else this.email = this.adminServ.email;
-    //     localStorage.setItem('email', this.email);
-    //   } else {
-    //     this.email = '';
-    //     localStorage.removeItem('email');
-    //   }
-    // });
-  }
+  ngOnInit(): void {}
 
   openLogoutDialog() {
-    // this.dialog.open(LogoutDialogComponent , {data:{message:'Are you sure you want to log out?'}});
-
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
       // data displayed in dialog
       data: {
@@ -53,8 +38,6 @@ export class MainLayoutComponent implements OnInit {
       console.log(`Dialog result: ${result}`); //'true' or 'false'
 
       if (result == 'true') {
-        //confirm case
-        //call logout func here
         this.adminServ.logout();
         this.isLogged = this.adminServ.isLogged;
         this.router.navigate(['/Login']);
