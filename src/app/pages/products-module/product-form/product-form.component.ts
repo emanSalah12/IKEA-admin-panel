@@ -9,13 +9,13 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 })
 export class ProductFormComponent implements OnInit {
 
-  newProdList: any 
-  @ViewChild('IDp') changeID !:ElementRef
+  message = ''
+
   @ViewChild('prdName') changeName !:ElementRef
-  @ViewChild('prdQuan') changeQuan !:ElementRef
+  @ViewChild('prdQuantity') changeQuan !:ElementRef
   @ViewChild('prdPrice') changePrice !:ElementRef
   @ViewChild('prdMaterial') changeMaterial !:ElementRef
-  @ViewChild('prdAval') changeAval !:ElementRef
+  @ViewChild('prdAvail') changeAval !:ElementRef
 
   constructor(
     private productServices : ProductsCrudService
@@ -24,24 +24,27 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addNewProduct(IDp: string, nameProd: string, quanPrpd: string, priceProd: string, materPrd:string, avlProd: string)
-  {
-    this.newProdList = {
-      id: IDp,
-      Name: nameProd,
-      Quantity: Number(quanPrpd),
-      Price: Number(priceProd),
-      Material: materPrd,
-      Online: avlProd,
-    }
-    console.log(this.newProdList)
-    this.productServices.addNewProduct(this.newProdList) 
-    this.clearInput()
+  saveProduct(prdName: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdAval: string){
+    let recordData={}
+    recordData['Name'] = prdName
+    recordData['Price'] = prdPrice
+    recordData['Quantity'] = prdQuantity
+    recordData['Material'] = prdMaterial
+    recordData['Online'] = prdAval
+
+    this.productServices.createNewProduct(recordData).then(res => {
+
+      console.log(res);
+      this.message = ('Product Successfully added...')
+      this.clearInput()
+      
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
   private clearInput()
   {
-    this.changeID.nativeElement.value = ''
     this.changeName.nativeElement.value = ''
     this.changeQuan.nativeElement.value = ''
     this.changePrice.nativeElement.value = ''

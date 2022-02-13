@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment.prod';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
