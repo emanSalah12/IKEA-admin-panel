@@ -78,10 +78,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   confirmComplete(order: IOrder) {
-    console.log('ele', this.dataSource.data); //array of data displayed in table
-    this.dataSource.data.forEach((element: IOrder) => {
-      if (element.id == order.id) element.Status = true;
-    });
+    this.orders.completeOrder(order.id);
   }
 
 }

@@ -32,4 +32,7 @@ export class OrdersService {
     return this.orders;
   }
 
+  completeOrder(id:string){
+    this.firestore.doc(`Orders/${id}`).update({Status:true});
+  }
 }
