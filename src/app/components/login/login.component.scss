@@ -30,5 +30,28 @@
         box-shadow: none !important;
       }
     }
+
+    .ng-valid:not(form) {
+      border-left: 5px solid #04c9b7;
+    }
+
+    .ng-invalid:not(form) {
+      border-left: 5px solid #f5375b;
+    }
+  }
+}
+
+::ng-deep snack-bar-container {
+  &.snackbar-alert {
+    background: #fcd7de;
+
+    .mat-simple-snackbar {
+      color: #f5375b;
+      font-weight: 500;
+
+      .mat-simple-snack-bar-content {
+        margin: auto;
+      }
+    }
   }
 }

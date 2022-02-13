@@ -16,7 +16,6 @@ import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 
@@ -42,7 +41,6 @@ import { ProductTableComponent } from './pages/product-table/product-table/produ
     AngularFirestoreModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatDialogModule,
     FormsModule,
   ],
   providers: [],
