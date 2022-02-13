@@ -3,6 +3,12 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +22,14 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private adminServ: AdminService, private router: Router) {}
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(
+    private adminServ: AdminService,
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.isLogged = this.adminServ.isLogged;
@@ -28,6 +41,15 @@ export class LoginComponent implements OnInit {
     this.adminServ.isLogged
       ? this.router.navigate(['/Dashboard'])
       : this.router.navigate(['/Login']);
+  }
+
+  openSnackBar() {
+    this._snackBar.open('You are not an admin!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: ['snackbar-warning'],
+      duration: 3000,
+    });
   }
 
   login() {
@@ -46,7 +68,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/Dashboard']);
       }
     } else {
-      alert('You are not an admin');
+      this.openSnackBar();
     }
   }
 }
