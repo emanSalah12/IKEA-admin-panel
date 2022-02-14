@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string = '';
   password: string = '';
+  rememberMe: boolean = false;
 
   loading: boolean = true;
 
@@ -95,5 +96,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.openSnackBar(loginError.NOT_ADMIN);
       this.loadingServ.loadingSubject.next(false);
     }
+  }
+
+  checkRememberMe() {
+    this.rememberMe = !this.rememberMe;
+    this.adminServ.rememberMe = this.rememberMe;
   }
 }

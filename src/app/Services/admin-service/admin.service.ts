@@ -18,6 +18,7 @@ export class AdminService {
   routeURL: string = '';
   errorMessage!: Error | undefined;
   accessToken: string = '';
+  rememberMe!: boolean;
 
   public isLoggedSubject: BehaviorSubject<boolean>;
 
@@ -53,14 +54,11 @@ export class AdminService {
   }
 
   addAdmin(admin: IAdmin) {
-    this.firestore
-      .collection<IAdmin>('Admins')
-      .doc(admin.id)
-      .set({
-        FirstName: admin.FirstName,
-        LastName: admin.LastName,
-        Email: admin.Email,
-      });
+    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({
+      FirstName: admin.FirstName,
+      LastName: admin.LastName,
+      Email: admin.Email,
+    });
   }
 
   async login(email: string, password: string) {
@@ -71,7 +69,10 @@ export class AdminService {
 
         await userCredential.user?.getIdTokenResult().then((token) => {
           this.accessToken = token.token;
-          localStorage.setItem('token', this.accessToken);
+
+          this.rememberMe
+            ? localStorage.setItem('token', this.accessToken)
+            : sessionStorage.setItem('token', this.accessToken);
         });
 
         this.isLoggedSubject.next(true);
@@ -86,12 +87,20 @@ export class AdminService {
     this.firebaseAuth.signOut().catch((err) => {
       console.log('Logout error:' + err);
     });
-    localStorage.removeItem('token');
+
+    this.rememberMe
+      ? localStorage.removeItem('token')
+      : sessionStorage.removeItem('token');
+
     this.isLoggedSubject.next(false);
   }
 
   get isLogged(): boolean {
-    return localStorage.getItem('token') ? true : false;
+    const token = this.rememberMe
+      ? localStorage.getItem('token')
+      : sessionStorage.getItem('token');
+
+    return token ? true : false;
   }
 
   get getLoggedStatus(): Observable<boolean> {
