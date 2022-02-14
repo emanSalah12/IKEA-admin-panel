@@ -19,6 +19,7 @@ export class AdminService {
   errorMessage!: Error | undefined;
   accessToken: string = '';
   rememberMe!: boolean;
+  loggedInAdmin!: any;
 
   public isLoggedSubject: BehaviorSubject<boolean>;
 
@@ -88,19 +89,29 @@ export class AdminService {
       console.log('Logout error:' + err);
     });
 
-    this.rememberMe
-      ? localStorage.removeItem('token')
-      : sessionStorage.removeItem('token');
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('admin_data');
+    } else {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('admin_data');
+    }
 
     this.isLoggedSubject.next(false);
   }
 
   get isLogged(): boolean {
-    const token = this.rememberMe
-      ? localStorage.getItem('token')
-      : sessionStorage.getItem('token');
+    let isLogged: boolean;
 
-    return token ? true : false;
+    if (localStorage.getItem('token')) {
+      isLogged = true;
+    } else if (sessionStorage.getItem('token')) {
+      isLogged = true;
+    } else {
+      isLogged = false;
+    }
+
+    return isLogged;
   }
 
   get getLoggedStatus(): Observable<boolean> {

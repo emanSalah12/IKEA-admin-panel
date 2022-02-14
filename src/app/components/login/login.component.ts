@@ -76,6 +76,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isAdmin = this.admins.some((admin) => admin.Email === this.email);
 
     if (this.isAdmin) {
+      this.adminServ.loggedInAdmin = this.admins.find(
+        (admin) => admin.Email === this.email
+      );
+
+      if (this.rememberMe) {
+        localStorage.setItem(
+          'admin_data',
+          JSON.stringify(this.adminServ.loggedInAdmin)
+        );
+      } else {
+        sessionStorage.setItem(
+          'admin_data',
+          JSON.stringify(this.adminServ.loggedInAdmin)
+        );
+      }
+
       await this.adminServ.login(this.email, this.password);
       this.isLogged = this.adminServ.isLogged;
 

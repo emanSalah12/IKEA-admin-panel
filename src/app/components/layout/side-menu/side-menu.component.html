@@ -2,15 +2,11 @@
   class="d-flex flex-column flex-shrink-0 p-0 m-0 bg-white position-sticky top-0"
   style="width: 245px"
 >
-  <a
-    href="/"
-    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-  >
-    <svg class="bi me-2" width="40" height="32">
-      <use xlink:href="#bootstrap" />
-    </svg>
-    <span class="fs-4">Sidebar</span>
-  </a>
+  <div class="admin-name">
+    <p>{{ adminData.FirstName }} {{ adminData.LastName }}</p>
+  </div>
+  <p>{{ adminData.Email }}</p>
+
   <hr />
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
