@@ -1,11 +1,7 @@
 <div class="parent">
   <h3>Products</h3>
 
-  <button
-    type="button"
-    class="btnTop btn-primary"
-    [routerLink]="['/Products/ProductForm']"
-  >
+  <button class="btnTop btn-primary" [routerLink]="['/Products/ProductForm']">
     Add Product
   </button>
 
@@ -28,8 +24,15 @@
         <td>{{ prd.Material }}</td>
         <td>{{ prd.Online }}</td>
         <td class="d-flex">
-          <button type="button" class="btn1 bttn btn-success">Update</button>
-          <button type="button" class="btn2 bttn btn-danger">Delete</button>
+          <button
+            class="btn1 bttn btn-success"
+            [routerLink]="['/Products/UpdateProduct', prd.id]"
+          >
+            Edit
+          </button>
+          <button class="btn2 bttn btn-danger" (click)="deleteProduct(prd.id)">
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>

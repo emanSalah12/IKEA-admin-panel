@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input, EventEmitter , OnChanges} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from 'src/app/Models/iProducts';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
@@ -8,16 +8,15 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss']
 })
-export class EditProductComponent implements OnInit,AfterViewInit {
+export class EditProductComponent implements OnInit {
 
-  updateProdList: IProduct|null={} as IProduct
-  prodSent: IProduct|null={} as IProduct
   ID:string = ''
-  @ViewChild('IDp') changeID !:ElementRef
+  message = ''
+
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdQuan') changeQuan !:ElementRef
   @ViewChild('prdPrice') changePrice !:ElementRef
-  @ViewChild('prdMaaterial') changeMaterial !:ElementRef
+  @ViewChild('prdMaterial') changeMaterial !:ElementRef
   @ViewChild('prdAval') changeAval !:ElementRef
 
   constructor(
@@ -25,59 +24,43 @@ export class EditProductComponent implements OnInit,AfterViewInit {
     private router: Router ,
     private activeRouter : ActivatedRoute ,
   ) { }
-  ngAfterViewInit(): void {
-    if(this.ID = '')
-    {
-      this.updateProduct()
-    }
-  }
+  
 
   ngOnInit(): void {
     this.activeRouter.paramMap.subscribe((paramMap) => {
       this.ID = paramMap.get('id')
       console.log(this.ID)
+    
+    })
+  }
 
-      this.updateProdList = this.productServices.getProdById(this.ID)
-      console.log(this.updateProdList)
+  updateProduct(prdName: string, prdPrice: string, prdQuantity: string, prdMaterial:string, prdAval: string){
+    let recordData={}
+    recordData['Name'] = prdName
+    recordData['Price'] = prdPrice
+    recordData['Quantity'] = prdQuantity
+    recordData['Material'] = prdMaterial
+    recordData['Online'] = prdAval
 
+    this.productServices.updateProduct(this.ID ,recordData).then(res => {
+
+      console.log(res);
+      this.message = ('Product Successfully Updateed...')
+      this.clearInput()
+      
+    }).catch(error => {
+      console.log(error)
     })
   }
 
 
-  EditProduct(IDp:string, nameProd:string, quanPrpd:string, priceProd:string, materPrd:string, avlProd:string)
+  private clearInput()
   {
-   this.prodSent = {
-     id : IDp,
-     Name: nameProd,
-     Quantity: Number(quanPrpd), 
-     Price: Number(priceProd),
-     Material: materPrd,
-     Online: avlProd,
-   } 
-
-   console.log(this.prodSent)
-   this.productServices.updateProductByServices(this.prodSent)
-  //  this.clearInput()
-  }
-
-  // private clearInput()
-  // {
-  //   this.changeID.nativeElement.value = ''
-  //   this.changeName.nativeElement.value = ''
-  //   this.changeQuan.nativeElement.value = ''
-  //   this.changePrice.nativeElement.value = ''
-  //   this.changeMaterial.nativeElement.value = ''
-  //   this.changeAval.nativeElement.value = ''
-  // }
-
-  private updateProduct()
-  {
-    this.changeID.nativeElement.value = this.updateProdList?.id
-    this.changeName.nativeElement.value = this.updateProdList?.Name
-    this.changeQuan.nativeElement.value = this.updateProdList?.Quantity
-    this.changePrice.nativeElement.value = this.updateProdList?.Price
-    this.changeMaterial.nativeElement.value = this.updateProdList?.Material
-    this.changeAval.nativeElement.value = this.updateProdList?.Online
+    this.changeName.nativeElement.value = ''
+    this.changeQuan.nativeElement.value = ''
+    this.changePrice.nativeElement.value = ''
+    this.changeMaterial.nativeElement.value = ''
+    this.changeAval.nativeElement.value = ''
   }
 
 }

@@ -19,87 +19,10 @@ export class ProductsCrudService {
   routeURL: string = '';
 
   constructor(public firestoreServices: AngularFirestore) {
-    this.listOfProducts = [
-      {
-        id: '1Ds3',
-        Color: 'white',
-        Description: 'des for product',
-        Images: [],
-        Length: 20,
-        Width: 40,
-        Name: 'Sofa',
-        ProductName: 'Sofa',
-        Price: 1200,
-        Quantity: 20,
-        Material: 'Cotton',
-        Online: 'true',
-        SubCategory: 'RoomCat',
-      },
-      {
-        id: '1Ds3',
-        Color: 'white',
-        Description: 'des for product',
-        Images: [],
-        Length: 20,
-        Width: 40,
-        Name: 'Sofa',
-        ProductName: 'Sofa',
-        Price: 1200,
-        Quantity: 20,
-        Material: 'Cotton',
-        Online: 'true',
-        SubCategory: 'RoomCat',
-      },
-      {
-        id: '1Ds3',
-        Color: 'white',
-        Description: 'des for product',
-        Images: [],
-        Length: 20,
-        Width: 40,
-        Name: 'Sofa',
-        ProductName: 'Sofa',
-        Price: 1200,
-        Quantity: 20,
-        Material: 'Cotton',
-        Online: 'true',
-        SubCategory: 'RoomCat',
-      },
-      {
-        id: '1Ds3',
-        Color: 'white',
-        Description: 'des for product',
-        Images: [],
-        Length: 20,
-        Width: 40,
-        Name: 'Sofa',
-        ProductName: 'Sofa',
-        Price: 1200,
-        Quantity: 20,
-        Material: 'Cotton',
-        Online: 'true',
-        SubCategory: 'RoomCat',
-      },
-      {
-        id: '1Ds3',
-        Color: 'white',
-        Description: 'des for product',
-        Images: [],
-        Length: 20,
-        Width: 40,
-        Name: 'Sofa',
-        ProductName: 'Sofa',
-        Price: 1200,
-        Quantity: 20,
-        Material: 'Cotton',
-        Online: 'true',
-        SubCategory: 'RoomCat',
-      },
-    ];
 
-    this.productsCollection =
-      firestoreServices.collection<IProduct>('Products');
-    this.products = this.productsCollection.snapshotChanges().pipe(
+    this.productsCollection = firestoreServices.collection<IProduct>('Products');
+    this.products = this.productsCollection.snapshotChanges()
+    .pipe(
       map((actions) => {
         return actions.map((a: any) => {
           const data = a.payload.doc.data() as IProduct;
@@ -122,30 +45,18 @@ export class ProductsCrudService {
     return this.firestoreServices.collection('Products').add(record);
   }
 
-  getProdById(prdId: string): IProduct | null {
-    let product = this.listOfProducts.find((prod) => prod.id == prdId);
-    return product ? product : null;
+  // Using firestore to delete any product
+  deleteProduct(recordID){
+    return this.firestoreServices.doc('Products/' + recordID).delete()
   }
 
-  updateProductByServices(updatelistOfProducts: IProduct) {
-    for (let i in this.listOfProducts) {
-      if (this.listOfProducts[i].id == updatelistOfProducts.id) {
-        this.listOfProducts[i] = updatelistOfProducts;
-      }
-    }
+  // Using firestore to delete any product
+  updateProduct(recordID, record){
+    return this.firestoreServices.doc('Products/' + recordID).update(record)
   }
 
-  // getMatchingproducts(searchText: string): IProduct[] {
-  //   var matchingProducts = [] as IProduct[];
-  //   this.listOfProducts.find((prd) => {
-  //     if (prd.SubCategory.includes(searchText.toLocaleLowerCase())) {
-  //       matchingProducts.push(prd);
-  //     }
-  //   });
-  //   return matchingProducts;
+  // getProdById(prdId: string): IProduct {
+  //   let product = this.listOfProducts.find((prod) => prod.id == prdId);
+  //   return product 
   // }
-
-  updateRecord(id: string, value: string) {
-    this.firestoreServices.doc(`Products/${id}`).update({ Material: value });
-  }
 }

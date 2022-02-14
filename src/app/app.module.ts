@@ -17,10 +17,10 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
 
 import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
 // import { environment } from 'src/environments/environment.prod';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ProductTableComponent } from './pages/product-table/product-table/produ
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
