@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input, EventEmitter , OnChanges} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from 'src/app/Models/iProducts';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
@@ -10,9 +10,8 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 })
 export class EditProductComponent implements OnInit {
 
-  updateProdList: IProduct|null={} as IProduct
-  prodSent: IProduct[]
   ID:string = ''
+  message = ''
 
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdQuan') changeQuan !:ElementRef
@@ -31,25 +30,29 @@ export class EditProductComponent implements OnInit {
     this.activeRouter.paramMap.subscribe((paramMap) => {
       this.ID = paramMap.get('id')
       console.log(this.ID)
-
-      this.updateProdList = this.productServices.getProdById(this.ID)
-      console.log(this.updateProdList)
-
     
     })
   }
 
-  updateProduct(){
-    
+  updateProduct(prdName: string, prdPrice: string, prdQuantity: string, prdMaterial:string, prdAval: string){
+    let recordData={}
+    recordData['Name'] = prdName
+    recordData['Price'] = prdPrice
+    recordData['Quantity'] = prdQuantity
+    recordData['Material'] = prdMaterial
+    recordData['Online'] = prdAval
+
+    this.productServices.updateProduct(this.ID ,recordData).then(res => {
+
+      console.log(res);
+      this.message = ('Product Successfully Updateed...')
+      this.clearInput()
+      
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
-
-  EditProduct()
-  {
-   this.clearInput()
-  }
-
-  
 
   private clearInput()
   {

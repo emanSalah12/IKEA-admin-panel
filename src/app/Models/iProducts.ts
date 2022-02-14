@@ -1,5 +1,5 @@
 export interface IProduct {
-  id: string;
+  id?: string;
   Color?: string;
   CreatedAt?: string;
   Description?: string;

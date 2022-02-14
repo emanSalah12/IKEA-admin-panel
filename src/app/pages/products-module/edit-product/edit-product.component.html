@@ -1,5 +1,7 @@
 <div class="container">
-  
+  <div class="form-heading">
+      <h3>Update Specific Product</h3>
+  </div>
   <div>
       <label for="prdName" class="form-label">Product Name:</label>
       <input type="text" class="form-control" id="prdName" #prdName />
@@ -21,7 +23,10 @@
       <input type="text" class="form-control" id="prdAval" #prdAval/>
   </div>
   
-  <button class="btn-primary" (click)="EditProduct()">Update Product</button>
+  <button class="btn-primary" (click)="updateProduct(prdName.value, prdPrice.value, prdQuan.value, prdMaterial.value, prdAval.value)">Update Product</button>
 
+  <div class="alert alert-success">
+    <h4>{{message}}</h4>
+  </div>
 </div>
 
