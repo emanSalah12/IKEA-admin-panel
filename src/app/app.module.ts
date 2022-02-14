@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
@@ -18,7 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { DarkModeDirective } from './Directives/dark-mode.directive';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     UsersComponent,
     OrdersComponent,
     LoginComponent,
+    DarkModeDirective,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

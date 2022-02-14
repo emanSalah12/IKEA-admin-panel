@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { Router } from '@angular/router';
@@ -11,14 +13,16 @@ import { AdminService } from 'src/app/Services/admin-service/admin.service';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit {
+  @HostBinding('class') className = '';
   isLogged: boolean = false;
   email: string = '';
   name: string = '';
-
+  toggleControl = new FormControl(false);
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private overlay: OverlayContainer
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +39,21 @@ export class MainLayoutComponent implements OnInit {
         localStorage.removeItem('email');
       }
     });
+
+    this.toggleControl.valueChanges.subscribe((darkMode) => {
+      sessionStorage.setItem('darkMode',darkMode);
+      console.log(darkMode);
+      
+      
+      const darkClassName = 'darkMode';
+      this.className = darkMode ? darkClassName : '';
+      if (darkMode) {
+        this.overlay.getContainerElement().classList.add(darkClassName);
+      } else {
+        this.overlay.getContainerElement().classList.remove(darkClassName);
+      }
+    });
+
   }
 
   openLogoutDialog() {
