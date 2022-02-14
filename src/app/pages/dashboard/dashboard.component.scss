@@ -28,28 +28,50 @@
 }
 
 .cpanel-red .icon-part,
-.cpanel-blue .icon-part
+.cpanel-blue .icon-part,
+.cpanel-green .icon-part,
+.cpanel-orange .icon-part
 {
   border-radius:4px ;
 
 }
 
-.cpanel-red .icon-part,
-.cpanel-red .icon-part i {
-  background-color: #E74C3C;
-}
 
 .cpanel-blue .icon-part,
 .cpanel-blue .icon-part i {
-  background-color: #34495E;
-
-}
-
-.cpanel-red .card-content-part {
-  background-color: #CF4436;
+  background-color: #1C4E80;
 }
 
 .cpanel-blue .card-content-part {
-  background-color: #34495E;
+  background-color: #1C4E80;
 }
 
+.cpanel-green .icon-part,
+.cpanel-green .icon-part i {
+  background-color: #6AB187;
+}
+
+.cpanel-green .card-content-part {
+  background-color: #6AB187;
+}
+
+
+.cpanel-orange .icon-part,
+.cpanel-orange .icon-part i {
+  background-color: #EA6A47;
+}
+
+.cpanel-orange .card-content-part {
+  background-color: #EA6A47;
+}
+
+.cpanel-red .icon-part,
+.cpanel-red .icon-part i {
+  background-color: #D32D41;
+}
+
+.cpanel-red .card-content-part {
+  background-color: #D32D41;
+}
+
+#Chart{margin: 100px 0;}
