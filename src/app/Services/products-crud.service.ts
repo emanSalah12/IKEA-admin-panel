@@ -55,8 +55,8 @@ export class ProductsCrudService {
     return this.firestoreServices.doc('Products/' + recordID).update(record)
   }
 
-  // getProdById(prdId: string): IProduct {
-  //   let product = this.listOfProducts.find((prod) => prod.id == prdId);
-  //   return product 
-  // }
+  getProductById(prdId: string){
+  return this.firestoreServices.doc('Products').valueChanges();
+  }
+
 }

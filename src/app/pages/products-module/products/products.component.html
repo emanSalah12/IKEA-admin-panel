@@ -1,6 +1,16 @@
 <div class="parent">
   <h3>Products</h3>
 
+  <div class="search-bar">
+    <input
+      class="form-control"
+      placeholder="Search..."
+      type="text"
+      #search
+      (keyup)="filterData(search.value)"
+    />
+  </div>
+
   <button class="btnTop btn-primary" [routerLink]="['/Products/ProductForm']">
     Add Product
   </button>
@@ -15,8 +25,17 @@
       <th scope="col">Availability</th>
       <th scope="col">Action</th>
     </thead>
+
+    <div
+      class="spinner spinner-border text-primary"
+      role="status"
+      [hidden]="!loading"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
     <tbody>
-      <tr *ngFor="let prd of listOfProducts">
+      <tr *ngFor="let prd of filterProduct">
         <td>{{ prd.id }}</td>
         <td>{{ prd.Name }}</td>
         <td>{{ prd.Price }}</td>
