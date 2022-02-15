@@ -55,7 +55,7 @@ export class ProductsCrudService {
     return this.firestoreServices.doc('Products/' + recordID).update(record)
   }
 
-  getProductById(id: string){
+  getProductById(prdId: string){
   return this.firestoreServices.doc('Products').valueChanges();
   }
 
