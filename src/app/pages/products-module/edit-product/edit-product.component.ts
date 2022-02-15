@@ -15,10 +15,18 @@ export class EditProductComponent implements OnInit {
   listOfProducts: IProduct|null={} as IProduct
 
   @ViewChild('prdName') changeName !:ElementRef
-  @ViewChild('prdQuan') changeQuan !:ElementRef
+  @ViewChild('prdQuantity') changeQuan !:ElementRef
   @ViewChild('prdPrice') changePrice !:ElementRef
   @ViewChild('prdMaterial') changeMaterial !:ElementRef
-  @ViewChild('prdAval') changeAval !:ElementRef
+  @ViewChild('prdAvail') changeAval !:ElementRef
+  @ViewChild('prdDesc') changeDesc !:ElementRef
+  @ViewChild('prdLength') changeLength !:ElementRef
+  @ViewChild('prdWidth') changeWidth !:ElementRef
+  @ViewChild('prdColor') changeColor !:ElementRef
+  @ViewChild('prdDate') changeDate !:ElementRef
+  @ViewChild('prdURL') changeURL !:ElementRef
+  @ViewChild('prdSubCatg') changeSubCatg !:ElementRef
+
 
   constructor(
     private productServices: ProductsCrudService,
@@ -38,25 +46,31 @@ export class EditProductComponent implements OnInit {
     })
   }
 
-  updateProduct(prdName: string, prdPrice: string, prdQuantity: string, prdMaterial:string, prdAval: string){
+  updateProduct(prdName: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdAval: string, prdDesc: string, prdLength: string, prdWidth: string, prdColor: string,prdDate: string, prdURL: string, prdSubCatg: string,){
     let recordData={}
     recordData['Name'] = prdName
     recordData['Price'] = prdPrice
     recordData['Quantity'] = prdQuantity
     recordData['Material'] = prdMaterial
     recordData['Online'] = prdAval
+    recordData['Description'] = prdDesc
+    recordData['CreatedAt'] = prdDate
+    recordData['Color'] = prdColor
+    recordData['Images'] = prdURL
+    recordData['Length'] = prdLength
+    recordData['Width'] = prdWidth
+    recordData['SubCategory'] = prdSubCatg
 
-    this.productServices.updateProduct(this.ID ,recordData).then(res => {
+    this.productServices.updateProduct(this.ID , recordData).then(res => {
 
       console.log(res);
-      this.message = ('Product Successfully Updateed...')
+      this.message = ('Product Successfully Updateeed...')
       this.clearInput()
       
     }).catch(error => {
       console.log(error)
     })
   }
-
 
   private clearInput()
   {
@@ -65,6 +79,13 @@ export class EditProductComponent implements OnInit {
     this.changePrice.nativeElement.value = ''
     this.changeMaterial.nativeElement.value = ''
     this.changeAval.nativeElement.value = ''
+    this.changeDesc.nativeElement.value = ''
+    this.changeLength.nativeElement.value = ''
+    this.changeWidth.nativeElement.value = ''
+    this.changeColor.nativeElement.value = ''
+    this.changeURL.nativeElement.value = ''
+    this.changeDate.nativeElement.value = ''
+    this.changeSubCatg.nativeElement.value = ''
   }
 
 }
