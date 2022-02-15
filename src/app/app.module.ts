@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -21,6 +22,9 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
 // import { environment } from 'src/environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NewChartsComponent } from './pages/dashboard/allCharts/Charts_One/new-charts.component';
+import { ChartsTwoComponent } from './pages/dashboard/allCharts/charts-two/charts-two.component';
 
 @NgModule({
   declarations: [
@@ -33,16 +37,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OrdersComponent,
     LoginComponent,
     ProductTableComponent,
+    NewChartsComponent,
+    ChartsTwoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
