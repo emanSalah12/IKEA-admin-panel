@@ -128,4 +128,20 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
+  deleteAdmin(adminID: string) {
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      data: {
+        title: 'Remove Admin',
+        content: 'Are you sure you want to remove this admin?',
+        yes: 'Yes',
+        no: 'cancel',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == 'true') {
+        this.adminService.removeAdmin(adminID);
+      }
+    });
+  }
 }
