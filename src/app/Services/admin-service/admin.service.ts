@@ -19,7 +19,7 @@ export class AdminService {
   errorMessage!: Error | undefined;
   accessToken: string = '';
   rememberMe!: boolean;
-  loggedInAdmin!: any;
+  loggedInAdmin!: IAdmin;
 
   public isLoggedSubject: BehaviorSubject<boolean>;
 

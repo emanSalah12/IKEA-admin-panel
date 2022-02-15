@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string = '';
   password: string = '';
-  rememberMe: boolean = false;
+  rememberMe: boolean = true;
 
   loading: boolean = true;
 
