@@ -12,6 +12,7 @@ export class EditProductComponent implements OnInit {
 
   ID:string = ''
   message = ''
+  listOfProducts: IProduct|null={} as IProduct
 
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdQuan') changeQuan !:ElementRef
@@ -30,6 +31,9 @@ export class EditProductComponent implements OnInit {
     this.activeRouter.paramMap.subscribe((paramMap) => {
       this.ID = paramMap.get('id')
       console.log(this.ID)
+
+      // this.listOfProducts = this.productServices.getProductById(this.ID)
+      // console.log(this.listOfProducts)
     
     })
   }
