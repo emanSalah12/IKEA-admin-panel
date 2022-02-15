@@ -55,10 +55,17 @@ export class AdminService {
   }
 
   addAdmin(admin: IAdmin) {
-    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({
+    this.adminsCollection.doc(admin.id).set({
       FirstName: admin.FirstName,
       LastName: admin.LastName,
       Email: admin.Email,
+    });
+  }
+
+  removeAdmin(adminId: string) {
+    this.adminsCollection.doc(adminId).delete();
+    this.adminsIds.find((id, index) => {
+      if (id == adminId) this.adminsIds.splice(index, 1);
     });
   }
 
