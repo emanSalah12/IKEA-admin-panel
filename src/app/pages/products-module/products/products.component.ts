@@ -10,9 +10,8 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
     })
   export class ProductsComponent implements OnInit, OnChanges{
 
-  prdList: IProduct[];
-  prodListMatchCategID: IProduct[] = [];
   listOfProducts: IProduct[];
+  loading: boolean = true;
   searchText:string;
 
   constructor(
@@ -36,6 +35,7 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
   ngOnInit(): void {
     this.productServices.getAllProducts().subscribe((Products) => {
       this.listOfProducts = Products;
+      this.loading = false
       console.log(this.listOfProducts[0].Name);
       
     });

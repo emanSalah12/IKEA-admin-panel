@@ -19,6 +19,11 @@
         <th scope="col">Availability</th>
         <th scope="col">Action</th>
     </thead>
+
+    <div class="spinner spinner-border text-primary" role="status" [hidden]="!loading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
     <tbody>
       <tr *ngFor="let prd of listOfProducts">
         <td>{{ prd.id }}</td>
