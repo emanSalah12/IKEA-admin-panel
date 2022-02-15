@@ -11,21 +11,17 @@ import {
   providedIn: 'root',
 })
 export class AdminService {
-  listOfAdmins: IAdmin[] = [
-    // {
-    //   id: '2',
-    //   FullName: 'Raghda Mohsen',
-    //   Email: 'Raghda@gmail.com',
-    //   Password: '1234',
-    // },
-  ];
-
   private adminsCollection: AngularFirestoreCollection<IAdmin>;
   admins: Observable<IAdmin[]>;
+  private adminsIds: string[];
 
   routeURL: string = '';
+  errorMessage!: Error | undefined;
+  accessToken: string = '';
+  rememberMe!: boolean;
+  loggedInAdmin!: any;
 
-  private isLoggedSubject: BehaviorSubject<boolean>;
+  public isLoggedSubject: BehaviorSubject<boolean>;
 
   email: string = '';
 
@@ -36,12 +32,14 @@ export class AdminService {
     this.isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
     this.adminsCollection = firestore.collection<IAdmin>('Admins');
+    this.adminsIds = [];
     this.admins = this.adminsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as IAdmin;
           const id = a.payload.doc.id;
-          data.id=id;
+          data.id = id;
+          this.adminsIds.push(id);
           return data;
         })
       )
@@ -52,41 +50,68 @@ export class AdminService {
     return this.admins;
   }
 
+  get getAdminsIds(): string[] {
+    return this.adminsIds;
+  }
+
   addAdmin(admin: IAdmin) {
-    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({FullName:admin.FullName,Email:admin.Email});
+    this.firestore.collection<IAdmin>('Admins').doc(admin.id).set({
+      FirstName: admin.FirstName,
+      LastName: admin.LastName,
+      Email: admin.Email,
+    });
   }
 
   async login(email: string, password: string) {
     await this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         this.email = email;
-        // this.password = password;
+
+        await userCredential.user?.getIdTokenResult().then((token) => {
+          this.accessToken = token.token;
+
+          this.rememberMe
+            ? localStorage.setItem('token', this.accessToken)
+            : sessionStorage.setItem('token', this.accessToken);
+        });
 
         this.isLoggedSubject.next(true);
-        localStorage.setItem('UID', JSON.stringify(userCredential.user?.uid));
       })
       .catch((err) => {
-        console.log(err);
+        this.errorMessage = err.code;
+        console.log('Service error: ' + this.errorMessage);
       });
-
-    // this.routeURL = await this.firebaseAuth.onAuthStateChanged(user=> user && )
   }
 
   logout() {
-    // localStorage.removeItem('token');
-    // this.isLoggedSubject.next(false);
+    this.firebaseAuth.signOut().catch((err) => {
+      console.log('Logout error:' + err);
+    });
 
-    // this.email = '';
-    // this.password = '';
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('admin_data');
+    } else {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('admin_data');
+    }
 
-    this.firebaseAuth.signOut();
-    localStorage.removeItem('UID');
     this.isLoggedSubject.next(false);
   }
 
   get isLogged(): boolean {
-    return localStorage.getItem('UID') ? true : false;
+    let isLogged: boolean;
+
+    if (localStorage.getItem('token')) {
+      isLogged = true;
+    } else if (sessionStorage.getItem('token')) {
+      isLogged = true;
+    } else {
+      isLogged = false;
+    }
+
+    return isLogged;
   }
 
   get getLoggedStatus(): Observable<boolean> {

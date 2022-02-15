@@ -1,1 +1,51 @@
-<p>dashboard works!</p>
+<div class="main-part container">
+  <div class="row">
+    <div class="cpanel cpanel-blue col-md-3">
+      <div class="icon-part">
+        <i class="fa fa-users" aria-hidden="true"></i><br />
+        <h5 style="font-weight: 500">TOTAL USERS</h5>
+        <p>{{ this.totalUsers }}</p>
+        <p>48% From Last 24 Hours</p>
+      </div>
+    </div>
+
+    <div class="cpanel cpanel-green col-md-3">
+      <div class="icon-part">
+        <i class="fas fa-money-bill" aria-hidden="true"></i><br />
+        <h5 style="font-weight: 500">BUDGETS</h5>
+        <p>$ 80,950</p>
+        <p>2% Decreased from last budget</p>
+      </div>
+    </div>
+
+    <div class="cpanel cpanel-orange col-md-3">
+      <div class="icon-part">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i><br />
+        <h5 style="font-weight: 500">PRODUCTS</h5>
+        <p>{{ this.totalProducts }}</p>
+        <p>20% increased from last 2 days</p>
+      </div>
+    </div>
+
+    <div class="cpanel cpanel-red col-md-3">
+      <div class="icon-part">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i><br />
+        <h5 style="font-weight: 500">SALES</h5>
+        <p>{{ this.totalOrders }}</p>
+        <p>5% increased from week</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="Chart">
+    <div class="row">
+      <div class="col-md-8">
+        <app-charts-two></app-charts-two>
+      </div>
+
+      <div class="col-md-4">
+        <app-new-charts></app-new-charts>
+      </div>
+    </div>
+  </div>
+</div>

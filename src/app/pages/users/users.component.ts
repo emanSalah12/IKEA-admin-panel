@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { _MatTableDataSource } from '@angular/material/table';
@@ -16,6 +23,7 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
 export class UsersComponent implements OnInit {
   listOfUsers: Iuser[] = [];
   listOfAdmins: IAdmin[] = [];
+  listOfNonAdmins: IAdmin[] = [];
   searchText: string;
   displayedColumns: string[] = [
     'position',
@@ -28,36 +36,76 @@ export class UsersComponent implements OnInit {
   ];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  loading: boolean = true;
+  selected = '1';
   constructor(
     private userService: UserService,
     private adminService: AdminService,
     private dialog: MatDialog
   ) {
-    this.userService.getAllUsers().subscribe((users) => {
+    this.searchText = '';
+  }
+
+  ngOnInit(): void {
+    this.userService.getAllUsers.subscribe((users) => {
       this.listOfUsers = users;
       this.dataSource = new _MatTableDataSource(this.listOfUsers);
       this.dataSource.paginator = this.paginator;
+      this.loading = false;
     });
     this.adminService.getAdmins.subscribe((admins) => {
       this.listOfAdmins = admins;
     });
-    this.searchText = '';
   }
 
-  ngOnInit(): void {}
-
+  changeViewedList() {
+    if (this.selected == '1') {
+      this.dataSource = new _MatTableDataSource(this.listOfUsers);
+    } else if (this.selected == '2') {
+      this.dataSource = new _MatTableDataSource(this.listOfAdmins);
+    } else if (this.selected == '3') {
+      this.listOfNonAdmins = this.listOfUsers.filter(
+        (user) => !this.adminService.getAdminsIds.includes(user.id)
+      );
+      this.dataSource = new _MatTableDataSource(this.listOfNonAdmins);
+    }
+    this.dataSource.paginator = this.paginator;
+    this.searchText = '';
+  }
   onTextChange() {
     if (this.searchText == '') {
-      this.dataSource = new _MatTableDataSource(this.listOfUsers);
+      this.changeViewedList();
     } else {
-      this.dataSource.filter = this.searchText.trim().toLowerCase();
+      if (this.selected == '1') {
+        this.dataSource = new _MatTableDataSource(
+          this.listOfUsers.filter((user) =>
+            `${user.FirstName} ${user.LastName}`
+              .toLocaleLowerCase()
+              .includes(this.searchText.toLocaleLowerCase())
+          )
+        );
+      } else if (this.selected == '2') {
+        this.dataSource = new _MatTableDataSource(
+          this.listOfAdmins.filter((admin) =>
+            `${admin.FirstName} ${admin.LastName}`
+              .toLocaleLowerCase()
+              .includes(this.searchText.toLocaleLowerCase())
+          )
+        );
+      } else if (this.selected == '3') {
+        this.dataSource = new _MatTableDataSource(
+          this.listOfNonAdmins.filter((user) =>
+            `${user.FirstName} ${user.LastName}`
+              .toLocaleLowerCase()
+              .includes(this.searchText.toLocaleLowerCase())
+          )
+        );
+      }
+      this.dataSource.paginator = this.paginator;
     }
   }
   checkIfAdmin(userId: string) {
-    for (let admin of this.listOfAdmins) {
-      if (admin.id == userId) return true;
-    }
+    if (this.adminService.getAdminsIds.includes(userId)) return true;
     return false;
   }
   addNewAdmin(user: Iuser) {
@@ -74,7 +122,8 @@ export class UsersComponent implements OnInit {
         this.adminService.addAdmin({
           id: user.id,
           Email: user.Email,
-          FullName: `${user.FirstName} ${user.LastName}`,
+          FirstName: user.FirstName,
+          LastName: user.LastName,
         });
       }
     });

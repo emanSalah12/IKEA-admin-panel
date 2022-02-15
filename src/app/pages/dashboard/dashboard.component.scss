@@ -1,0 +1,77 @@
+
+.main-part {
+  margin: 0 auto;
+  text-align: center;
+  padding: 0px 5px;
+}
+
+.cpanel {
+  color: #fff;
+  margin-top: 20px;
+}
+
+
+.icon-part i {
+  font-size: 30px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  margin-top: -25px;
+  margin-bottom: 10px;
+
+}
+
+.icon-part p {
+  margin: 0px;
+  font-size: 13px;
+  padding-bottom: 10px;
+}
+
+.cpanel-red .icon-part,
+.cpanel-blue .icon-part,
+.cpanel-green .icon-part,
+.cpanel-orange .icon-part
+{
+  border-radius:4px ;
+
+}
+
+
+.cpanel-blue .icon-part,
+.cpanel-blue .icon-part i {
+  background-color: #1C4E80;
+}
+
+.cpanel-blue .card-content-part {
+  background-color: #1C4E80;
+}
+
+.cpanel-green .icon-part,
+.cpanel-green .icon-part i {
+  background-color: #6AB187;
+}
+
+.cpanel-green .card-content-part {
+  background-color: #6AB187;
+}
+
+
+.cpanel-orange .icon-part,
+.cpanel-orange .icon-part i {
+  background-color: #EA6A47;
+}
+
+.cpanel-orange .card-content-part {
+  background-color: #EA6A47;
+}
+
+.cpanel-red .icon-part,
+.cpanel-red .icon-part i {
+  background-color: #D32D41;
+}
+
+.cpanel-red .card-content-part {
+  background-color: #D32D41;
+}
+
+#Chart{margin: 100px 0;}

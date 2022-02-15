@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,10 +16,15 @@ import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DarkModeDirective } from './Directives/dark-mode.directive';
+
+import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
+// import { environment } from 'src/environments/environment.prod';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NewChartsComponent } from './pages/dashboard/allCharts/Charts_One/new-charts.component';
+import { ChartsTwoComponent } from './pages/dashboard/allCharts/charts-two/charts-two.component';
 
 @NgModule({
   declarations: [
@@ -31,17 +37,22 @@ import { DarkModeDirective } from './Directives/dark-mode.directive';
     OrdersComponent,
     LoginComponent,
     DarkModeDirective,
+    ProductTableComponent,
+    NewChartsComponent,
+    ChartsTwoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -10,14 +10,26 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../Services/admin-service/admin.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+import { LoadingService } from './../Services/loading.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private _snackBar: MatSnackBar,
+    private loadingServ: LoadingService
   ) {}
 
   canActivate(
@@ -29,16 +41,39 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.adminServ.isLogged) {
-          resolve(true);
-        } else {
-          alert(`You must log in first so you can go to ${state.url}`);
-          localStorage.setItem('routeURL', state.url);
-          this.router.navigate(['/Login']);
-          resolve(false);
-        }
-      }, 2000);
+      if (this.adminServ.isLogged) {
+        resolve(true);
+      } else {
+        this.loadingServ.loadingSubject.next(true);
+
+        setTimeout(() => {
+          this.loadingServ.loadingSubject.next(false);
+
+          if (this.adminServ.errorMessage !== undefined) {
+            console.log('Guard ERROR: ' + this.adminServ.errorMessage);
+            this.adminServ.errorMessage = undefined;
+          } else if (this.adminServ.isLogged) {
+            resolve(true);
+          } else {
+            localStorage.setItem('routeURL', state.url);
+
+            this.router.navigate(['/Login']);
+
+            this._snackBar.open(
+              `You must log in first so you can go to ${state.url}`,
+              '',
+              {
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+                panelClass: ['snackbar-alert'],
+                duration: 3000,
+              }
+            );
+
+            resolve(false);
+          }
+        }, 2500);
+      }
     });
   }
 }

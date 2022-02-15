@@ -1,5 +1,7 @@
-<div class="container form-container">
-  <form>
+<div class="container form-container d-flex flex-column">
+  <mat-spinner *ngIf="loading" diameter="40" class="mx-auto"></mat-spinner>
+
+  <form #loginForm="ngForm" *ngIf="!loading">
     <div class="form-group">
       <label for="exampleInputUsername1">Email</label>
       <input
@@ -9,7 +11,15 @@
         class="form-control"
         id="exampleInputEmail1"
         placeholder="Enter email"
+        required
+        #formemail="ngModel"
       />
+      <small
+        class="text-danger w-100"
+        [hidden]="formemail.valid || formemail.untouched"
+      >
+        Email is required
+      </small>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
@@ -20,12 +30,34 @@
         class="form-control"
         id="exampleInputPassword1"
         placeholder="Password"
+        required
+        #formpassword="ngModel"
       />
+      <small
+        class="text-danger w-100"
+        [hidden]="formpassword.valid || formpassword.untouched"
+      >
+        Password is required
+      </small>
     </div>
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <input
+        type="checkbox"
+        name="checkbox"
+        class="form-check-input"
+        id="exampleCheck1"
+        [(ngModel)]="rememberMe"
+        (click)="checkRememberMe()"
+      />
       <label class="form-check-label" for="exampleCheck1">Remember Me</label>
     </div>
-    <button type="button" class="btn" (click)="login()">Login</button>
+    <button
+      type="button"
+      class="btn"
+      [disabled]="loginForm.invalid"
+      (click)="login()"
+    >
+      Login
+    </button>
   </form>
 </div>

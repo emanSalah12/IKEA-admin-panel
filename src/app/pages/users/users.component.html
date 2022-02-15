@@ -1,24 +1,37 @@
 <div class="container mat-elevation-z8 mat-app-background" >
-  <form class="m-5 pt-5">
-    <div class="input-group">
-      <div class="input-group-append">
-        <span class="input-group-text">
-          <mat-icon aria-hidden="false" class="text-secondary"
-            >person_search</mat-icon
-          >
-        </span>
+
+  <div class="row pt-5 justify-content-around">
+    <form class="col-5">
+      <div class="input-group">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <mat-icon aria-hidden="false" class="text-secondary"
+              >person_search</mat-icon
+            >
+          </span>
+        </div>
+        <input
+          matInput
+          placeholder="Search user"
+          class="form-control"
+          [(ngModel)]="searchText"
+          name="searchText"
+          (keyup)="onTextChange()"
+        />
       </div>
-      <input
-        matInput
-        placeholder="Search user"
-        class="form-control"
-        [(ngModel)]="searchText"
-        name="searchText"
-        (keyup)="onTextChange()"
-      />
-    </div>
-  </form>
-  <table mat-table [dataSource]="dataSource">
+    </form>
+    <mat-form-field class="col-2">
+      <mat-label>Filter</mat-label>
+      <mat-select [(value)]="selected" (valueChange)="changeViewedList()">
+        <mat-option value="1">All Users</mat-option>
+        <mat-option value="2">Admins</mat-option>
+        <mat-option value="3">Not Admins</mat-option>
+      </mat-select>
+    </mat-form-field>  
+  </div>
+  <mat-spinner [hidden]="!loading" diameter="30" class="mx-auto"></mat-spinner>
+
+  <table mat-table [dataSource]="dataSource" [hidden]="loading">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -66,7 +79,7 @@
           *ngIf="!checkIfAdmin(element.id)"
           (click)="addNewAdmin(element)"
         >
-          <mat-icon aria-hidden="false" class="text-success"
+          <mat-icon aria-hidden="false" [style.color]="'#04c9b7'"
             >add_moderator</mat-icon
           >
         </button>

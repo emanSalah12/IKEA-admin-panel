@@ -1,11 +1,11 @@
-$aqua:#04c9b7;
-$redBright:#f9423c;
+$aqua: #04c9b7;
+$redBright: #f9423c;
 
 table {
-    width: 100%;
-  }
+  width: 100%;
+}
 
-.status{
+.status {
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -16,23 +16,24 @@ table {
   vertical-align: center;
   border-radius: 0.25rem;
   border: 1px solid transparent;
-  width: 65px
+  width: 65px;
 }
 
-.completed{
+.completed {
   @extend .status;
   border-color: $aqua;
   color: $aqua;
 }
-.aqua-col{
+.aqua-col {
   color: $aqua;
 }
-.pending{
+.pending {
   @extend .status;
   border-color: $redBright;
-  color:  $redBright;
+  color: $redBright;
 }
 
-:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
-    stroke: $aqua;
+:host ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $aqua;
 }

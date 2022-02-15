@@ -1,36 +1,42 @@
 <div
-  class="d-flex flex-column flex-shrink-0 p-0 m-0  mat-app-background position-sticky top-0"
+  class="d-flex flex-column flex-shrink-0 p-0 m-0 bg-white side-menu mat-app-background"
   style="width: 245px"
 >
-  <a
-    href="/"
-    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-  >
-    <svg class="bi me-2" width="40" height="32">
-      <use xlink:href="#bootstrap" />
-    </svg>
-    <span class="fs-4">Sidebar</span>
-  </a>
-  <hr />
+  <div class="profile">
+    <div class="profile-image">
+      <img src="/assets/images/profile-picture.png" alt="" />
+    </div>
+    <div class="profile-data">
+      <div class="profile-name">
+        <p>{{ adminData.FirstName }} {{ adminData.LastName }}</p>
+      </div>
+      <p class="profile-email">{{ adminData.Email }}</p>
+    </div>
+  </div>
+
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
       <a routerLink="/Dashboard" routerLinkActive="active" class="nav-link">
-        Dashboard
+        <mat-icon aria-hidden="false">home_icon</mat-icon>
+        <span> Dashboard </span>
       </a>
     </li>
     <li class="nav-item">
       <a routerLink="/Users" routerLinkActive="active" class="nav-link">
-        Users
+        <mat-icon aria-hidden="false">people_icon</mat-icon>
+        <span> Users </span>
       </a>
     </li>
     <li class="nav-item">
       <a routerLink="/Products" routerLinkActive="active" class="nav-link">
-        Products
+        <mat-icon aria-hidden="false">shopping_bag_icon</mat-icon>
+        <span> Products </span>
       </a>
     </li>
     <li class="nav-item">
       <a routerLink="/Orders" routerLinkActive="active" class="nav-link">
-        Orders
+        <mat-icon aria-hidden="false">shopping_cart_icon</mat-icon>
+        <span> Orders </span>
       </a>
     </li>
   </ul>

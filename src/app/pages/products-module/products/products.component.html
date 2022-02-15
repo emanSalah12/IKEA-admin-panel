@@ -1,1 +1,40 @@
-<p>products works!</p>
+<div class="parent">
+  <h3>Products</h3>
+
+  <button class="btnTop btn-primary" [routerLink]="['/Products/ProductForm']">
+    Add Product
+  </button>
+
+  <table class="table table-hover">
+    <thead class="">
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Material</th>
+      <th scope="col">Availability</th>
+      <th scope="col">Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prd of listOfProducts">
+        <td>{{ prd.id }}</td>
+        <td>{{ prd.Name }}</td>
+        <td>{{ prd.Price }}</td>
+        <td>{{ prd.Quantity }}</td>
+        <td>{{ prd.Material }}</td>
+        <td>{{ prd.Online }}</td>
+        <td class="d-flex">
+          <button
+            class="btn1 bttn btn-success"
+            [routerLink]="['/Products/UpdateProduct', prd.id]"
+          >
+            Edit
+          </button>
+          <button class="btn2 bttn btn-danger" (click)="deleteProduct(prd.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
