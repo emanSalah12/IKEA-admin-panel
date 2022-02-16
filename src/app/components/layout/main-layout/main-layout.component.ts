@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component'; //import our Dialog Component
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
+import { DarkModeService } from 'src/app/Services/dark-mode.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -13,7 +14,6 @@ import { AdminService } from 'src/app/Services/admin-service/admin.service';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit {
-  @HostBinding('class') className = '';
   isLogged: boolean = false;
   email: string = '';
   name: string = '';
@@ -22,7 +22,7 @@ export class MainLayoutComponent implements OnInit {
     private adminServ: AdminService,
     private router: Router,
     public dialog: MatDialog,
-    private overlay: OverlayContainer
+    private darkmodeSer:DarkModeService
   ) {}
 
   ngOnInit(): void {
@@ -43,15 +43,7 @@ export class MainLayoutComponent implements OnInit {
     this.toggleControl.valueChanges.subscribe((darkMode) => {
       sessionStorage.setItem('darkMode',darkMode);
       console.log(darkMode);
-      
-      
-      const darkClassName = 'darkMode';
-      this.className = darkMode ? darkClassName : '';
-      if (darkMode) {
-        this.overlay.getContainerElement().classList.add(darkClassName);
-      } else {
-        this.overlay.getContainerElement().classList.remove(darkClassName);
-      }
+      this.darkmodeSer.darkModeSubject.next(darkMode);  
     });
 
   }

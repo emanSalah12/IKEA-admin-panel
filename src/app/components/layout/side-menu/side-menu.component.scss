@@ -54,3 +54,10 @@
     }
   }
 }
+
+.dark-menu {
+  @extend .side-menu;
+  .nav-link {
+    color: #fff;
+  }
+}

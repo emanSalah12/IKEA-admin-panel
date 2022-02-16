@@ -3,7 +3,7 @@
   <div class="flex-column p-4 main">
     <router-outlet></router-outlet>
   </div>
-  <mat-slide-toggle [formControl]="toggleControl" class=" my-3">
+  <mat-slide-toggle [formControl]="toggleControl" class=" my-3" color="primary">
     <mat-icon  aria-hidden="false">dark_mode</mat-icon>
   </mat-slide-toggle>
   <button mat-button mat-icon-button class="m-2" (click)="openLogoutDialog()">
