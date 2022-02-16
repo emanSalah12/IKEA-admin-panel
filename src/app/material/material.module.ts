@@ -7,7 +7,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReusableDialogComponent } from './materialComponents/reusable-dialog/reusable-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MaterialComponents = [
@@ -19,7 +20,8 @@ const MaterialComponents = [
   MatDialogModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSnackBarModule,
+  MatSlideToggleModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

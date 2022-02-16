@@ -1,18 +1,17 @@
 <h3>Orders</h3>
 
-<div class="mat-elevation-z8 py-3" [style.background]="'white'">
-  <div class="d-flex justify-content-between align-items-center px-3">
-    <h1 class="">Orders List</h1>
-
-    <mat-form-field appearance="outline">
-      <!-- <mat-label>filter By</mat-label> -->
-      <mat-select [(value)]="selected" (valueChange)="filter()">
-        <mat-option value="">All</mat-option>
-        <mat-option value="false">pending</mat-option>
-        <mat-option value="true">Completed</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+<div class="mat-elevation-z8 py-3 mat-app-background">
+ <div class="d-flex justify-content-between align-items-center px-3 ">
+  <h1 class=""> Orders List</h1>
+  
+  <mat-form-field appearance="outline" >
+    <mat-select [(value)]="selected" (valueChange)="filter()">
+      <mat-option value="" selected>All</mat-option>
+      <mat-option value="false">pending</mat-option>
+      <mat-option value="true">Completed</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
   <hr />
 
   <mat-spinner [hidden]="!loading" diameter="30" class="mx-auto"></mat-spinner>

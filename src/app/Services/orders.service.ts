@@ -12,11 +12,19 @@ import {
   providedIn: 'root',
 })
 export class OrdersService {
-  private ordersCollection: AngularFirestoreCollection<IOrder>;
-  orders: Observable<IOrder[]>;
-  constructor(private firestore: AngularFirestore) {
-    this.ordersCollection = firestore.collection<IOrder>('Orders');
-    this.orders = this.ordersCollection.snapshotChanges().pipe(
+  private ordersCollection!: AngularFirestoreCollection<IOrder>;
+  orders?: Observable<IOrder[]>;
+  constructor(private firestore: AngularFirestore) {}
+
+  getAllOrders(status: string): Observable<IOrder[]> {
+    //empty string means no filteration go to else
+    this.ordersCollection = status
+      ? this.firestore.collection<IOrder>('Orders', (ref) =>
+          ref.where('Status', '==', status == 'true' ? true : false)
+        )
+      : this.firestore.collection<IOrder>('Orders');
+
+    let filteredOrders = this.ordersCollection.snapshotChanges().pipe(
       map((actions) => {
         return actions.map((a: any) => {
           const data = a.payload.doc.data() as IOrder;
@@ -25,10 +33,7 @@ export class OrdersService {
         });
       })
     );
-  }
-
-  getAllOrders(): Observable<IOrder[]> {
-    return this.orders;
+    return filteredOrders;
   }
 
   completeOrder(id: string) {

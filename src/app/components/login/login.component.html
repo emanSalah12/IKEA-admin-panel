@@ -1,7 +1,7 @@
-<div class="container form-container d-flex flex-column">
+<div class="container form-container d-flex flex-column  ">
   <mat-spinner *ngIf="loading" diameter="40" class="mx-auto"></mat-spinner>
 
-  <form #loginForm="ngForm" *ngIf="!loading">
+  <form #loginForm="ngForm" *ngIf="!loading" [class]="darkMode?'mat-app-background':'bg-white'">
     <div class="form-group">
       <label for="exampleInputUsername1">Email</label>
       <input
@@ -44,7 +44,6 @@
       <input
         type="checkbox"
         name="checkbox"
-        class="form-check-input"
         id="exampleCheck1"
         [(ngModel)]="rememberMe"
         (click)="checkRememberMe()"
@@ -53,8 +52,8 @@
     </div>
     <button
       type="button"
-      class="btn"
       [disabled]="loginForm.invalid"
+      [class]="darkMode?'btn text-white':'btn'"
       (click)="login()"
     >
       Login

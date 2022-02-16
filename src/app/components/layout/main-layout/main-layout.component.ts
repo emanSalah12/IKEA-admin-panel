@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component'; //import our Dialog Component
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
+import { DarkModeService } from 'src/app/Services/dark-mode.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -14,14 +17,37 @@ export class MainLayoutComponent implements OnInit {
   isLogged: boolean = false;
   email: string = '';
   name: string = '';
-
+  toggleControl = new FormControl();
   constructor(
     private adminServ: AdminService,
     private router: Router,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private darkmodeSer:DarkModeService
+  ) {
+    this.toggleControl = new FormControl(darkmodeSer.isDark);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.adminServ.getLoggedStatus.subscribe((status) => {
+      this.isLogged = status;
+
+      if (this.isLogged) {
+        if (localStorage.getItem('email'))
+          this.email = localStorage.getItem('email')!;
+        else this.email = this.adminServ.email;
+        localStorage.setItem('email', this.email);
+      } else {
+        this.email = '';
+        localStorage.removeItem('email');
+      }
+    });
+
+    this.toggleControl.valueChanges.subscribe((darkMode) => {
+      darkMode ?localStorage.setItem('darkMode',darkMode): localStorage.removeItem('darkMode');
+      this.darkmodeSer.darkModeSubject.next(darkMode);  
+    });
+
+  }
 
   openLogoutDialog() {
     let dialogRef = this.dialog.open(ReusableDialogComponent, {

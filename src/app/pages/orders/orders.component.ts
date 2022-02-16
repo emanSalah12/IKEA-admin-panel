@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { OnDestroy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { _MatTableDataSource } from '@angular/material/table';
 import { IOrder } from 'src/app/Models/iorder';
 import { OrdersService } from 'src/app/Services/orders.service';
 import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component';
-// import { LogoutDialogComponent } from './../logout-dialog/logout-dialog.component';//import our Dialog Component
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'index',
     'total',
@@ -25,16 +25,26 @@ export class OrdersComponent implements OnInit {
   dataSource: any;
   loading: boolean = true;
   selected = '';
+  private subscriptions: Subscription[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private orders: OrdersService, private dialog: MatDialog) {
-    this.orders.getAllOrders()?.subscribe((arg) => {
-      console.log('observables', arg);
-      this.ordersList = arg;
-      this.dataSource = new _MatTableDataSource(this.ordersList);
-      this.dataSource.paginator = this.paginator;
-      this.loading = false;
-    });
+    this.setOrders();
+  }
+
+  setOrders() {
+    this.loading = true;
+    let getSubscription = this.orders
+      .getAllOrders(this.selected)
+      ?.subscribe((arg) => {
+        console.log('observables filter', arg);
+        this.ordersList = arg;
+        this.dataSource = new _MatTableDataSource(this.ordersList);
+        this.dataSource.paginator = this.paginator;
+        this.loading = false;
+      });
+
+    this.subscriptions.push(getSubscription);
   }
 
   ngOnInit(): void {}
@@ -54,7 +64,6 @@ export class OrdersComponent implements OnInit {
       console.log(`Dialog result: ${result}`); //'true' or 'false'
 
       if (result == 'true') {
-        //confirm case
         this.confirmComplete(order);
       } else {
         console.log('cancelled');
@@ -63,10 +72,21 @@ export class OrdersComponent implements OnInit {
   }
 
   confirmComplete(order: IOrder) {
+    // console.log(this.subscriptions);
+    for (let i in this.subscriptions) {
+      // console.log(i);
+      +i < this.subscriptions.length - 1 && this.subscriptions[i].unsubscribe();
+    }
+
     this.orders.completeOrder(order.id);
   }
 
   filter() {
-    this.dataSource.filter = this.selected.trim().toLowerCase();
+    // console.log('in filter', this.selected);
+    this.setOrders();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 }

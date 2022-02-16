@@ -1,7 +1,6 @@
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
@@ -18,6 +17,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './components/login/login.component';
+import { DarkModeDirective } from './Directives/dark-mode.directive';
 
 import { ProductTableComponent } from './pages/product-table/product-table/product-table.component';
 // import { environment } from 'src/environments/environment.prod';
@@ -36,6 +36,7 @@ import { ChartsTwoComponent } from './pages/dashboard/allCharts/charts-two/chart
     UsersComponent,
     OrdersComponent,
     LoginComponent,
+    DarkModeDirective,
     ProductTableComponent,
     NewChartsComponent,
     ChartsTwoComponent,
