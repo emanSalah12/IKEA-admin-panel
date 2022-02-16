@@ -17,12 +17,13 @@ export class AppComponent implements OnInit {
   constructor(
     private loadingServ: LoadingService,
     private overlay: OverlayContainer,
-    private darkmodeSer:DarkModeService
+    private darkmodeSer:DarkModeService,
     ) {}
 
   ngOnInit(): void {
     const darkClassName = 'darkMode';
     this.darkmodeSer.darkModeSubject.subscribe(darkMode=>{
+            
       this.className = darkMode ? darkClassName : '';
       if (darkMode) {
         this.overlay.getContainerElement().classList.add(darkClassName);
@@ -30,6 +31,8 @@ export class AppComponent implements OnInit {
         this.overlay.getContainerElement().classList.remove(darkClassName);
       }
 
+      darkMode? document.body.classList.add( 'dark-back') :document.body.classList.remove( 'dark-back');
+     
     })
     this.loadingServ.getLoadingStatus.subscribe((status) => {
       this.loading = status;

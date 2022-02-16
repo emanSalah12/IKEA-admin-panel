@@ -9,6 +9,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { DarkModeService } from 'src/app/Services/dark-mode.service';
 
 enum loginError {
   NOT_ADMIN = 'You are not an admin',
@@ -33,13 +34,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+  darkMode: boolean;
 
   constructor(
     private adminServ: AdminService,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private loadingServ: LoadingService
-  ) {}
+    private loadingServ: LoadingService,
+    private darkmodeSer:DarkModeService
+  ) {
+    darkmodeSer.darkModeSubject.subscribe(status=>{
+      this.darkMode=status;
+})
+  }
 
   ngOnInit() {
     this.isLogged = this.adminServ.isLogged;
