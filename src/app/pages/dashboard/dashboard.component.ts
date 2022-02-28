@@ -1,4 +1,3 @@
-import { DashboardServiceService } from './../../Services/dashboard-service/dashboard-service.service';
 import { Component, OnInit } from '@angular/core';
 import {
   AngularFirestore,
@@ -6,53 +5,52 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
+
 export class DashboardComponent implements OnInit {
   totalProducts:[]|any;
   totalOrders:[]|any;
   totalUsers:[]|any;
 
-  constructor(private userSer: DashboardServiceService,public UF: AngularFirestore) {
-
-  }
+  constructor(public UF: AngularFirestore) {}
 
   getUsers(){
     const users= this.UF.collection('users').snapshotChanges();
     users.subscribe(payload=>{
 
         this.totalUsers= payload.length;
-        console.log(this.totalUsers);
-
+        console.log(this.totalUsers)
       })
 }
 
 
 getProducts(){
-  const users= this.UF.collection('Products').snapshotChanges();
-  users.subscribe(payload=>{
+  const products= this.UF.collection('Products').snapshotChanges();
+  products.subscribe(payload=>{
 
       this.totalProducts= payload.length;
-      console.log(this.totalProducts);
+      console.log(this.totalProducts)
     })
 }
+
 
 getOrders(){
-  const users= this.UF.collection('Orders').snapshotChanges();
-  users.subscribe(payload=>{
+  const orders= this.UF.collection('Orders').snapshotChanges();
+  orders.subscribe(payload=>{
 
       this.totalOrders= payload.length;
-      console.log(this.totalOrders);
+      console.log(this.totalOrders)
     })
 }
+
 
   ngOnInit(){
    this.getUsers();
    this.getOrders();
-   this.getProducts()
+   this.getProducts();
   }
 }

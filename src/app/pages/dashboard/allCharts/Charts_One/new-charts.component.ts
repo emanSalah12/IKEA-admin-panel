@@ -1,42 +1,71 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-  import Chart  from 'chart.js/auto';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-new-charts',
   templateUrl: './new-charts.component.html',
-  styleUrls: ['./new-charts.component.scss']
+  styleUrls: ['./new-charts.component.scss'],
 })
-export class NewChartsComponent implements AfterViewInit {
+
+export class NewChartsComponent implements AfterViewInit, OnInit {
+  totalSubCate: [] | any;
+  sub: any;
+  pieChart: any;
+  name:any
+ dataArr: [] |any =[] ;
 
   @ViewChild('pieCanvas') private pieCanvas!: ElementRef;
 
-  pieChart: any;
+  constructor(private firestore: AngularFirestore) {}
 
-  constructor() { }
+  getSubCategories() {
 
-    ngAfterViewInit(): void {
-      this.pieChartBrowser();
-    }
-
-    pieChartBrowser(): void {
-      this.pieChart = new Chart(this.pieCanvas.nativeElement, {
-        type: 'pie',
-        data: {
-          labels: ['USERS', 'PRODUCTS', 'SALES', 'ORDERS'],
-          datasets: [{
-            backgroundColor: [
-              '#1C4E80',
-              '#EA6A47',
-              '#D32D41',
-              '#6AB187',
-
-            ],
-            data: [12, 19, 28, 24]
-          }]
+    const subCat = this.firestore
+      .collectionGroup('subCategory').valueChanges()
+      .subscribe((data) => {
+        this.sub = data;
+        for (let i = 0; i < data.length; i++) {
+          var name = this.sub[i].Name;
+          var pieDatta = this.dataArr.push(name)
+          // console.log(name);
+          // console.log(pieDatta);
         }
-      });
-    }
+
+      }
+      )}
+
+
+  pieChartBrowser() {
+    this.pieChart = new Chart(this.pieCanvas.nativeElement, {
+      type: 'pie',
+      data: {
+        labels: [ this.dataArr],
+        datasets: [
+          {
+            backgroundColor: ['#1C4E80', '#EA6A47', '#D32D41', '#6AB187',
+            // '#FF0000','#00FF00','#0000FF','#808080','	#FFFF00','#008000'
+
+
+          ],
+            data: [12, 19, 28, 24],
+          },
+        ],
+      },
+    })
   }
 
+  ngOnInit() {
+    this.getSubCategories();
+  }
 
-
+  ngAfterViewInit(): void {
+    this.pieChartBrowser();
+  }
+}
