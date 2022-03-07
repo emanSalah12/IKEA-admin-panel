@@ -4,24 +4,36 @@
     </div>
     
       <div class="form-group" >
-        <label for="prdName" class="form-label">Product Name in English:</label>
+        <label for="prdPrdName" class="form-label">Product Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prdPrdName"
+          placeholder="Enter product Name in English"
+          #prdPrdName
+          required pattern="[A-Za-z]{3,}"
+        >
+      </div>
+
+      <div class="form-group" >
+        <label for="prdName" class="form-label">Name in English:</label>
         <input
           type="text"
           class="form-control"
           id="prdName"
-          placeholder="Enter product Name in English"
+          placeholder="Enter Name in English"
           #prdName
           required pattern="[A-Za-z]{3,}"
         >
       </div>
 
       <div class="form-group" >
-        <label for="prdNameAr" class="form-label">Product Name in Arabic:</label>
+        <label for="prdNameAr" class="form-label">Name in Arabic:</label>
         <input
           type="text"
           class="form-control"
           id="prdNameAr"
-          placeholder="Enter product Name in Arabic"
+          placeholder="Enter Name in Arabic"
           #prdNameAr
           required pattern="[A-Za-z]{3,}"
         >
@@ -184,6 +196,7 @@
         class="btn-primary"
         (click)="
           saveProduct(
+            prdPrdName.value,
             prdName.value,
             prdNameAr.value,
             prdQuantity.value,

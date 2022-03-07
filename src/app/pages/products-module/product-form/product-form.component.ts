@@ -11,7 +11,7 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 export class ProductFormComponent implements OnInit {
 
   message = ''
-
+  @ViewChild('prdPrdName') changePrdName !:ElementRef
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdNameAr') changeNameAr !:ElementRef
   @ViewChild('prdQuantity') changeQuan !:ElementRef
@@ -36,8 +36,9 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveProduct(prdName: string, prdNameAr: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdMaterialAr:string, prdAval: string, prdDesc: string, prdDescAr: string, prdLength: string, prdWidth: string, prdColor: string, prdColorAr: string, prdDate: string, prdURL: string, prdSubCatg: string,){
+  saveProduct(prdPrdName:string, prdName: string, prdNameAr: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdMaterialAr:string, prdAval: string, prdDesc: string, prdDescAr: string, prdLength: string, prdWidth: string, prdColor: string, prdColorAr: string, prdDate: string, prdURL: string, prdSubCatg: string,){
     let recordData={}
+    recordData['ProductName'] = prdName
     recordData['Name'] = prdName
     recordData['NameAr'] = prdNameAr
     recordData['Price'] = prdPrice
@@ -68,6 +69,7 @@ export class ProductFormComponent implements OnInit {
 
   private clearInput()
   {
+    this.changePrdName.nativeElement.value = ''
     this.changeName.nativeElement.value = ''
     this.changeNameAr.nativeElement.value = ''
     this.changeQuan.nativeElement.value = ''
