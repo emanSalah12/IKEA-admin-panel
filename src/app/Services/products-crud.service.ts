@@ -56,7 +56,7 @@ export class ProductsCrudService {
   }
 
   getProductById(prdId: string){
-  return this.firestoreServices.doc('Products').valueChanges();
+  return this.firestoreServices.doc('Products' + prdId).valueChanges();
   }
 
 }

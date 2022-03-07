@@ -4,13 +4,25 @@
     </div>
     
       <div class="form-group" >
-        <label for="prdName" class="form-label">Product Name:</label>
+        <label for="prdName" class="form-label">Product Name in English:</label>
         <input
           type="text"
           class="form-control"
           id="prdName"
-          placeholder="Enter product Name"
+          placeholder="Enter product Name in English"
           #prdName
+          required pattern="[A-Za-z]{3,}"
+        >
+      </div>
+
+      <div class="form-group" >
+        <label for="prdNameAr" class="form-label">Product Name in Arabic:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prdNameAr"
+          placeholder="Enter product Name in Arabic"
+          #prdNameAr
           required pattern="[A-Za-z]{3,}"
         >
       </div>
@@ -36,15 +48,27 @@
         >
       </div>
       <div class="form-group">
-        <label for="prdMaterial" class="form-label">Product Material:</label>
+        <label for="prdMaterial" class="form-label">Product Material in English:</label>
         <input
           type="text"
           class="form-control"
           id="prdMaterial"
-          placeholder="Enter product Material"
+          placeholder="Enter product Material in English"
           #prdMaterial
         >
       </div>
+
+      <div class="form-group">
+        <label for="prdMaterialAr" class="form-label">Product Material in Arabic:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prdMaterialAr"
+          placeholder="Enter product Material in Arabic"
+          #prdMaterialAr
+        >
+      </div>
+
       <div class="form-group">
         <label for="prdAval" class="form-label">Product Availability:</label>
         <input
@@ -57,13 +81,24 @@
       </div>
   
       <div class="form-group">
-        <label for="prdDesc" class="form-label">Product Description:</label>
+        <label for="prdDesc" class="form-label">Product Description in English:</label>
         <input
           type="text"
           class="form-control"
           id="prdDesc"
-          placeholder="Enter product Description"
+          placeholder="Enter product Description in English"
           #prdDesc
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="prdDescAr" class="form-label">Product Description in Arabic:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prdDescAr"
+          placeholder="Enter product Description in Arabic"
+          #prdDescAr
         >
       </div>
   
@@ -101,13 +136,24 @@
       </div>
   
       <div class="form-group">
-        <label for="prdColor" class="form-label">Product Color:</label>
+        <label for="prdColor" class="form-label">Product Color in English:</label>
         <input
           type="text"
           class="form-control"
           id="prdColor"
-          placeholder="Enter product Color"
+          placeholder="Enter product Color in English"
           #prdColor
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="prdColorAr" class="form-label">Product Color in Arabic:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="prdColorAr"
+          placeholder="Enter product Color in Arabic"
+          #prdColorAr
         >
       </div>
   
@@ -139,14 +185,18 @@
         (click)="
           saveProduct(
             prdName.value,
+            prdNameAr.value,
             prdQuantity.value,
             prdPrice.value,
             prdMaterial.value,
+            prdMaterialAr.value,
             prdAvail.value,
             prdDesc.value,
+            prdDescAr.value,
             prdLength.value,
             prdWidth.value,
             prdColor.value,
+            prdColorAr.value,
             prdDate.value,
             prdURL.value,
             prdSubCatg.value

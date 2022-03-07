@@ -12,7 +12,7 @@ export class EditProductComponent implements OnInit {
 
   ID:string = ''
   message = ''
-  listOfProducts: IProduct|null={} as IProduct
+  listOfProducts: IProduct = {} as IProduct
 
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdQuantity') changeQuan !:ElementRef
@@ -44,6 +44,23 @@ export class EditProductComponent implements OnInit {
       // console.log(this.listOfProducts)
     
     })
+  }
+
+
+  ngAfterViewInit(): void {
+
+    if (this.ID) {
+      const listOfProducts = this.productServices.getProductById(
+        this.ID
+      );
+      console.log(listOfProducts);
+
+      // listOfProducts.subscribe((product) => {
+      //   this.listOfProducts.Name = product.Name
+      //   this.listOfProducts.Price = product.Price
+      //   this.listOfProducts.Quantity = product.Quantity
+      // });
+    }
   }
 
   updateProduct(prdName: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdAval: string, prdDesc: string, prdLength: string, prdWidth: string, prdColor: string,prdDate: string, prdURL: string, prdSubCatg: string,){

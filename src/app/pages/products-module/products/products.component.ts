@@ -20,15 +20,7 @@ import {Subscription} from 'rxjs'
     private productServices: ProductsCrudService
   ) { }
 
-  deleteProduct(recordID)
-  {
-    var sureMessage = confirm('Are you sure to delete record of product..!')
-    if(sureMessage)
-    {
-      this.productServices.deleteProduct(recordID)
-    }
-  }
-
+  
   ngOnInit(): void {
     this.subscriber = this.productServices.getAllProducts().subscribe((Products) => {
       this.filterProduct = this.listOfProducts = Products;
@@ -55,6 +47,21 @@ import {Subscription} from 'rxjs'
 
   ngOnDestroy() {
     this.subscriber.unsubscribe()
-  }  
+  } 
+
+  deleteProduct(recordID)
+  {
+    var sureMessage = confirm('Are you sure to delete record of product..!')
+    if(sureMessage)
+    {
+      this.productServices.deleteProduct(recordID)
+    }
+  }
+
+
+  editProduct(prdId: string) {
+    // this.productServices.getProductById(prdId)
+    console.log(prdId);
+  }
 
 }
