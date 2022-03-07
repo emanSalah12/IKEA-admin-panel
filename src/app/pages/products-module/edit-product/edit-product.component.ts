@@ -14,15 +14,20 @@ export class EditProductComponent implements OnInit {
   message = ''
   listOfProducts: IProduct = {} as IProduct
 
+  @ViewChild('prdPrdName') changePrdName !:ElementRef
   @ViewChild('prdName') changeName !:ElementRef
+  @ViewChild('prdNameAr') changeNameAr !:ElementRef
   @ViewChild('prdQuantity') changeQuan !:ElementRef
   @ViewChild('prdPrice') changePrice !:ElementRef
   @ViewChild('prdMaterial') changeMaterial !:ElementRef
+  @ViewChild('prdMaterialAr') changeMaterialAr !:ElementRef
   @ViewChild('prdAvail') changeAval !:ElementRef
   @ViewChild('prdDesc') changeDesc !:ElementRef
+  @ViewChild('prdDescAr') changeDescAr !:ElementRef
   @ViewChild('prdLength') changeLength !:ElementRef
   @ViewChild('prdWidth') changeWidth !:ElementRef
   @ViewChild('prdColor') changeColor !:ElementRef
+  @ViewChild('prdColorAr') changeColorAr !:ElementRef
   @ViewChild('prdDate') changeDate !:ElementRef
   @ViewChild('prdURL') changeURL !:ElementRef
   @ViewChild('prdSubCatg') changeSubCatg !:ElementRef
@@ -63,16 +68,21 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  updateProduct(prdName: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdAval: string, prdDesc: string, prdLength: string, prdWidth: string, prdColor: string,prdDate: string, prdURL: string, prdSubCatg: string,){
+  updateProduct(prdPrdName:string, prdName: string, prdNameAr: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdMaterialAr:string, prdAval: string, prdDesc: string, prdDescAr: string, prdLength: string, prdWidth: string, prdColor: string, prdColorAr: string, prdDate: string, prdURL: string, prdSubCatg: string,){
     let recordData={}
+    recordData['ProductName'] = prdName
     recordData['Name'] = prdName
+    recordData['NameAr'] = prdNameAr
     recordData['Price'] = prdPrice
     recordData['Quantity'] = prdQuantity
     recordData['Material'] = prdMaterial
+    recordData['MaterialAr'] = prdMaterialAr
     recordData['Online'] = prdAval
     recordData['Description'] = prdDesc
+    recordData['DescriptionAr'] = prdDescAr
     recordData['CreatedAt'] = prdDate
     recordData['Color'] = prdColor
+    recordData['ColorAr'] = prdColorAr
     recordData['Images'] = prdURL
     recordData['Length'] = prdLength
     recordData['Width'] = prdWidth
@@ -91,15 +101,20 @@ export class EditProductComponent implements OnInit {
 
   private clearInput()
   {
+    this.changePrdName.nativeElement.value = ''
     this.changeName.nativeElement.value = ''
+    this.changeNameAr.nativeElement.value = ''
     this.changeQuan.nativeElement.value = ''
     this.changePrice.nativeElement.value = ''
     this.changeMaterial.nativeElement.value = ''
+    this.changeMaterialAr.nativeElement.value = ''
     this.changeAval.nativeElement.value = ''
     this.changeDesc.nativeElement.value = ''
+    this.changeDescAr.nativeElement.value = ''
     this.changeLength.nativeElement.value = ''
     this.changeWidth.nativeElement.value = ''
     this.changeColor.nativeElement.value = ''
+    this.changeColorAr.nativeElement.value = ''
     this.changeURL.nativeElement.value = ''
     this.changeDate.nativeElement.value = ''
     this.changeSubCatg.nativeElement.value = ''

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../Models/iProducts';
+import { ISubCateg } from '../Models/ISubCategory';
 import { map } from 'rxjs/operators';
 import {
   AngularFirestore,
@@ -15,7 +16,9 @@ export class ProductsCrudService {
 
   // Using FireStore
   private productsCollection: AngularFirestoreCollection<IProduct>;
+  private subCategoryCollection: AngularFirestoreCollection<ISubCateg>;
   products: Observable<IProduct[]>;
+  subCategory: Observable<ISubCateg[]>;
   routeURL: string = '';
 
   constructor(public firestoreServices: AngularFirestore) {
@@ -57,6 +60,31 @@ export class ProductsCrudService {
 
   getProductById(prdId: string){
   return this.firestoreServices.doc('Products' + prdId).valueChanges();
+  }
+
+  // get data from SubCategory Document
+  getSubCateg() {
+    this.subCategoryCollection = this.firestoreServices.collection<ISubCateg>('subCategory');
+
+    // return this.subCategoryCollection
+    this.subCategory = this.subCategoryCollection.snapshotChanges()
+    .pipe(
+      map((actions) => {
+        return actions.map((a: any) => {
+          const data = a.payload.doc.data() as ISubCateg;
+          data.id = a.payload.doc.id;
+          console.log(data);
+          return data;
+        });
+      })
+    );
+    
+  }
+
+  getAllProductsinSubCat(): Observable<ISubCateg[]> {
+    // Using firestore
+    this.getSubCateg()
+    return this.subCategory;
   }
 
 }

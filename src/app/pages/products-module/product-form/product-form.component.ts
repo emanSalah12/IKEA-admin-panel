@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
-
+import {ISubCateg} from '../../../Models/ISubCategory'
 
 
 @Component({
@@ -11,6 +11,8 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 export class ProductFormComponent implements OnInit {
 
   message = ''
+  categ: ISubCateg[]
+
   @ViewChild('prdPrdName') changePrdName !:ElementRef
   @ViewChild('prdName') changeName !:ElementRef
   @ViewChild('prdNameAr') changeNameAr !:ElementRef
@@ -86,5 +88,10 @@ export class ProductFormComponent implements OnInit {
     this.changeURL.nativeElement.value = ''
     this.changeDate.nativeElement.value = ''
     this.changeSubCatg.nativeElement.value = ''
+  }
+
+  fillDropDown(): void {
+    this.productServices.getAllProductsinSubCat()
+    console.log('dropDown list')
   }
 }

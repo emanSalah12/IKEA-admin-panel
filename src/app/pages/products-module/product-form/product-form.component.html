@@ -190,6 +190,13 @@
           #prdSubCatg
         >
       </div>
+      
+      <div class="form-group">
+        <select (click) = "fillDropDown()">
+          <option value="">- Select -</option>
+          <option *ngFor="let catg of categ" [value]="catg.id">{{catg.Name}}</option>
+        </select>
+      </div>
   
   
       <button
