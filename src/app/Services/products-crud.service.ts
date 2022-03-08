@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IProduct } from '../Models/iProducts';
 import { map } from 'rxjs/operators';
+import { IProduct } from '../Models/iProducts';
+
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -19,10 +20,9 @@ export class ProductsCrudService {
   routeURL: string = '';
 
   constructor(public firestoreServices: AngularFirestore) {
-
-    this.productsCollection = firestoreServices.collection<IProduct>('Products');
-    this.products = this.productsCollection.snapshotChanges()
-    .pipe(
+    this.productsCollection =
+      firestoreServices.collection<IProduct>('Products');
+    this.products = this.productsCollection.snapshotChanges().pipe(
       map((actions) => {
         return actions.map((a: any) => {
           const data = a.payload.doc.data() as IProduct;
@@ -46,17 +46,30 @@ export class ProductsCrudService {
   }
 
   // Using firestore to delete any product
-  deleteProduct(recordID){
-    return this.firestoreServices.doc('Products/' + recordID).delete()
+  deleteProduct(recordID) {
+    return this.firestoreServices.doc('Products/' + recordID).delete();
   }
 
   // Using firestore to delete any product
-  updateProduct(recordID, record){
-    return this.firestoreServices.doc('Products/' + recordID).update(record)
+  updateProduct(recordID, record) {
+    return this.firestoreServices.doc('Products/' + recordID).update(record);
   }
 
-  getProductById(prdId: string){
-  return this.firestoreServices.doc('Products').valueChanges();
-  }
+  getProductById(prdId: string): Observable<IProduct> {
+    return this.firestoreServices
+      .collection('Products')
+      .doc(prdId)
+      .snapshotChanges()
+      .pipe(
+        map((a) => {
+          const data = a.payload.data() as IProduct;
+          const id = a.payload.id;
+          data.id = id;
+          // this.adminsIds.push(id);
+          return data;
+        })
+      );
 
+    // this.products = this.productsCollection.snapshotChanges().pipe(
+  }
 }

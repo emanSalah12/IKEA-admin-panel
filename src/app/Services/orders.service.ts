@@ -31,6 +31,22 @@ export class OrdersService {
     return this.orders;
   }
 
+  getOrderById(oId: string): Observable<IOrder> {
+    return this.firestore
+      .collection('Orders')
+      .doc(oId)
+      .snapshotChanges()
+      .pipe(
+        map((a) => {
+          const data = a.payload.data() as IOrder;
+          const id = a.payload.id;
+          data.id = id;
+          // this.ordersIds.push(id);
+          return data;
+        })
+      );
+  }
+
   completeOrder(id: string) {
     this.firestore.doc(`Orders/${id}`).update({ Status: true });
   }

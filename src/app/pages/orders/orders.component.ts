@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit {
     'purchaseDate',
     'status',
     'action',
+    'orderDetails',
   ];
 
   ordersList?: IOrder[];

@@ -7,6 +7,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { OrderDetailsComponent } from './pages/orders/order-details/order-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Orders', component: OrdersComponent },
+      { path: 'OrderDetails/:oid', component: OrderDetailsComponent },
       {
         path: 'Products',
         loadChildren: () =>
