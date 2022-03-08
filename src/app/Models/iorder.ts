@@ -4,6 +4,7 @@ export interface IOrder {
   Status: boolean;
   TotalPrice: number;
   UserID: string;
+  CheckedAddress?: number;
   Items: {
     Amount: number;
     ProductID: string;
