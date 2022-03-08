@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ISubCateg } from '../../../Models/ISubCategory';
-import { ProductsCrudService } from 'src/app/Services/products-crud.service';
+import { productsSubCategservice } from 'src/app/Services/productsSubCategservice';
 
 @Component({
   selector: 'app-drop-down-list',
@@ -9,11 +9,27 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 })
 export class DropDownListComponent implements OnInit {
 
-  categList: ISubCateg[] 
-  constructor(private productServices: ProductsCrudService) { }
+  categList: ISubCateg[]
+  categListName = '' 
+  
+  constructor(private productServices: productsSubCategservice) { }
 
   ngOnInit(): void {
-    // this.categList = this.productServices.getSubCateg()
+    this.productServices.getSubCateg().subscribe(categList => {
+      // console.log(categList);
+      this.categListName = categList[0].Name
+      console.log(this.categListName);
+      
+      
+    })
+  }
+
+  fillData() {
+    for (let i of this.categList) {
+      console.log(i);
+    }
+    console.log('Clicked in Dropdown list');
+    
   }
 
 }
