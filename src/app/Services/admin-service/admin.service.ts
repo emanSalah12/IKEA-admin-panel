@@ -19,7 +19,7 @@ export class AdminService {
   errorMessage!: Error | undefined;
   accessToken: string = '';
   rememberMe!: boolean;
-  loggedInAdmin!: any;
+  loggedInAdmin!: IAdmin;
 
   public isLoggedSubject: BehaviorSubject<boolean>;
 
@@ -110,9 +110,7 @@ export class AdminService {
   get isLogged(): boolean {
     let isLogged: boolean;
 
-    if (localStorage.getItem('token')) {
-      isLogged = true;
-    } else if (sessionStorage.getItem('token')) {
+    if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
       isLogged = true;
     } else {
       isLogged = false;

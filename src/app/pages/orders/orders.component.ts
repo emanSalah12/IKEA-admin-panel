@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     'purchaseDate',
     'status',
     'action',
+    'orderDetails',
   ];
 
   ordersList?: IOrder[];

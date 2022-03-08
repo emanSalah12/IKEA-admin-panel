@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin-service/admin.service';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
@@ -21,14 +21,14 @@ enum loginError {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   isLogged: boolean = false;
   isAdmin: boolean = false;
   admins!: IAdmin[];
 
   email: string = '';
   password: string = '';
-  rememberMe: boolean = false;
+  rememberMe: boolean = true;
 
   loading: boolean = true;
 
@@ -62,10 +62,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loadingServ.getLoadingStatus.subscribe((status) => {
       this.loading = status;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.loadingServ.loadingSubject.next(false);
   }
 
   openSnackBar(loginErrMessage: string) {
@@ -103,8 +99,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isLogged = this.adminServ.isLogged;
 
       if (this.isLogged) {
-        this.loadingServ.loadingSubject.next(false);
-
         if (localStorage.getItem('routeURL')) {
           this.router.navigate([`${localStorage.getItem('routeURL')}`]);
           localStorage.removeItem('routeURL');

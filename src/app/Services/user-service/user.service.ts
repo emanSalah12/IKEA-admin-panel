@@ -32,4 +32,19 @@ export class UserService {
   get getAllUsers(): Observable<Iuser[]> {
     return this.listOfUsers;
   }
+
+  getUserById(uId): Observable<Iuser> {
+    return this.firestore
+      .collection('users')
+      .doc(uId)
+      .snapshotChanges()
+      .pipe(
+        map((a) => {
+          const data = a.payload.data() as Iuser;
+          const id = a.payload.id;
+          data.id = id;
+          return data;
+        })
+      );
+  }
 }
