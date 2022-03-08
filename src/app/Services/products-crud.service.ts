@@ -65,11 +65,8 @@ export class ProductsCrudService {
           const data = a.payload.data() as IProduct;
           const id = a.payload.id;
           data.id = id;
-          // this.adminsIds.push(id);
           return data;
         })
       );
-
-    // this.products = this.productsCollection.snapshotChanges().pipe(
   }
 }

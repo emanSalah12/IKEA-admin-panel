@@ -1,5 +1,5 @@
 <div
-  class="d-flex flex-column flex-shrink-0 p-0 m-0 "
+  class="d-flex flex-column flex-shrink-0 p-0 m-0"
   [class]="darkMode ? 'dark-menu' : 'side-menu bg-white'"
   style="width: 245px"
 >
@@ -9,9 +9,9 @@
     </div>
     <div class="profile-data">
       <div class="profile-name">
-        <p>{{ adminData.FirstName }} {{ adminData.LastName }}</p>
+        <p>{{ FullName }}</p>
       </div>
-      <p class="profile-email">{{ adminData.Email }}</p>
+      <p class="profile-email">{{ email }}</p>
     </div>
   </div>
 

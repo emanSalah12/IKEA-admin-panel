@@ -11,21 +11,30 @@ import { IAdmin } from 'src/app/ViewModels/iadmin';
 })
 export class SideMenuComponent implements OnInit {
   adminData!: IAdmin;
-   darkMode:boolean;
+  darkMode: boolean;
+
+  FullName!: string;
+  email!: string;
+
   constructor(
-    private adminServ: AdminService,
     public firebaseAuth: AngularFireAuth,
-    private darkmodeSer:DarkModeService
-
+    private darkmodeSer: DarkModeService,
+    private adminServ: AdminService
   ) {
-    darkmodeSer.darkModeSubject.subscribe(status=>{
-          this.darkMode=status;
-    })
+    this.darkmodeSer.darkModeSubject.subscribe((status) => {
+      this.darkMode = status;
+    });
   }
-
   ngOnInit(): void {
-    this.adminData = localStorage.getItem('admin_data')
-      ? JSON.parse(localStorage.getItem('admin_data'))
-      : JSON.parse(sessionStorage.getItem('admin_data'));
+    this.adminServ
+      .getAdminById(
+        localStorage.getItem('uid')
+          ? localStorage.getItem('uid')
+          : sessionStorage.getItem('uid')
+      )
+      .subscribe((admin) => {
+        this.FullName = `${admin.FirstName} ${admin.LastName}`;
+        this.email = admin.Email;
+      });
   }
 }

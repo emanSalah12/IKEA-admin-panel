@@ -56,10 +56,20 @@
   }
 }
 
-.bg-white{
+.bg-white {
   background-color: #fff;
 }
 
-.text-white{
+.text-white {
   color: #fff;
+}
+
+.form-check {
+  padding: 0;
+  display: flex;
+  align-items: center;
+
+  &-label {
+    padding-left: 6px;
+  }
 }

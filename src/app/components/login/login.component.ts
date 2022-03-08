@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private loadingServ: LoadingService,
-    private darkmodeSer:DarkModeService
+    private darkmodeSer: DarkModeService
   ) {
-    darkmodeSer.darkModeSubject.subscribe(status=>{
-      this.darkMode=status;
-})
+    this.darkmodeSer.darkModeSubject.subscribe((status) => {
+      this.darkMode = status;
+    });
   }
 
   ngOnInit() {
@@ -83,18 +83,6 @@ export class LoginComponent implements OnInit {
         (admin) => admin.Email === this.email
       );
 
-      if (this.rememberMe) {
-        localStorage.setItem(
-          'admin_data',
-          JSON.stringify(this.adminServ.loggedInAdmin)
-        );
-      } else {
-        sessionStorage.setItem(
-          'admin_data',
-          JSON.stringify(this.adminServ.loggedInAdmin)
-        );
-      }
-
       await this.adminServ.login(this.email, this.password);
       this.isLogged = this.adminServ.isLogged;
 
@@ -117,6 +105,6 @@ export class LoginComponent implements OnInit {
 
   checkRememberMe() {
     this.rememberMe = !this.rememberMe;
-    this.adminServ.rememberMe = this.rememberMe;
+    this.adminServ.rememberMe.next(this.rememberMe);
   }
 }

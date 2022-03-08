@@ -22,7 +22,7 @@ export class MainLayoutComponent implements OnInit {
     private adminServ: AdminService,
     private router: Router,
     public dialog: MatDialog,
-    private darkmodeSer:DarkModeService
+    private darkmodeSer: DarkModeService
   ) {
     this.toggleControl = new FormControl(darkmodeSer.isDark);
   }
@@ -30,23 +30,14 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.adminServ.getLoggedStatus.subscribe((status) => {
       this.isLogged = status;
-
-      if (this.isLogged) {
-        if (localStorage.getItem('email'))
-          this.email = localStorage.getItem('email')!;
-        else this.email = this.adminServ.email;
-        localStorage.setItem('email', this.email);
-      } else {
-        this.email = '';
-        localStorage.removeItem('email');
-      }
     });
 
     this.toggleControl.valueChanges.subscribe((darkMode) => {
-      darkMode ?localStorage.setItem('darkMode',darkMode): localStorage.removeItem('darkMode');
-      this.darkmodeSer.darkModeSubject.next(darkMode);  
+      darkMode
+        ? localStorage.setItem('darkMode', darkMode)
+        : localStorage.removeItem('darkMode');
+      this.darkmodeSer.darkModeSubject.next(darkMode);
     });
-
   }
 
   openLogoutDialog() {

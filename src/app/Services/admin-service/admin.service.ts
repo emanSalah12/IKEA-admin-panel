@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, first, map, Observable } from 'rxjs';
 import { IAdmin } from 'src/app/ViewModels/iadmin';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -17,8 +17,9 @@ export class AdminService {
 
   routeURL: string = '';
   errorMessage!: Error | undefined;
-  accessToken: string = '';
-  rememberMe!: boolean;
+
+  rememberMe!: BehaviorSubject<boolean>;
+
   loggedInAdmin!: IAdmin;
 
   public isLoggedSubject: BehaviorSubject<boolean>;
@@ -30,6 +31,7 @@ export class AdminService {
     private firestore: AngularFirestore
   ) {
     this.isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
+    this.rememberMe = new BehaviorSubject<boolean>(true);
 
     this.adminsCollection = firestore.collection<IAdmin>('Admins');
     this.adminsIds = [];
@@ -69,18 +71,31 @@ export class AdminService {
     });
   }
 
+  getAdminById(aId: string): Observable<IAdmin> {
+    return this.firestore
+      .collection('Admins')
+      .doc(aId)
+      .snapshotChanges()
+      .pipe(
+        map((a) => {
+          const data = a.payload.data() as IAdmin;
+          return data;
+        })
+      );
+  }
+
   async login(email: string, password: string) {
     await this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
         this.email = email;
 
-        await userCredential.user?.getIdTokenResult().then((token) => {
-          this.accessToken = token.token;
-
-          this.rememberMe
-            ? localStorage.setItem('token', this.accessToken)
-            : sessionStorage.setItem('token', this.accessToken);
+        const uid = userCredential.user?.uid;
+        this.rememberMe.pipe(first()).subscribe((isChecked) => {
+          console.log(isChecked);
+          isChecked
+            ? localStorage.setItem('uid', uid)
+            : sessionStorage.setItem('uid', uid);
         });
 
         this.isLoggedSubject.next(true);
@@ -96,13 +111,9 @@ export class AdminService {
       console.log('Logout error:' + err);
     });
 
-    if (localStorage.getItem('token')) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('admin_data');
-    } else {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('admin_data');
-    }
+    localStorage.getItem('uid')
+      ? localStorage.removeItem('uid')
+      : sessionStorage.removeItem('uid');
 
     this.isLoggedSubject.next(false);
   }
@@ -110,7 +121,7 @@ export class AdminService {
   get isLogged(): boolean {
     let isLogged: boolean;
 
-    if (localStorage.getItem('token') || sessionStorage.getItem('token')) {
+    if (localStorage.getItem('uid') || sessionStorage.getItem('uid')) {
       isLogged = true;
     } else {
       isLogged = false;
