@@ -23,7 +23,11 @@
     </p>
     <p>
       <strong>Created At: </strong>
-      {{ currentPurchaseDate?.seconds | date: "MMM d, y " }}
+      {{ currentPurchaseDate?.toDate().toLocaleString("en-US") }}
+    </p>
+    <p *ngIf="currentOrder.CheckedAddress">
+      <strong>Shipping Address: </strong>
+      {{ currentOrder?.CheckedAddress }}
     </p>
     <p>
       <strong>Status: </strong>
