@@ -191,13 +191,7 @@
         >
       </div>
       
-      <div class="form-group">
-        <select (click) = "fillDropDown()">
-          <option value="">- Select -</option>
-          <option *ngFor="let catg of categ" [value]="catg.id">{{catg.Name}}</option>
-        </select>
-      </div>
-  
+      <!-- <app-drop-down-list></app-drop-down-list> -->
   
       <button
         class="btn-primary"

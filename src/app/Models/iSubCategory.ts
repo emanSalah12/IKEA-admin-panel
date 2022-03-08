@@ -4,6 +4,6 @@ export interface ISubCateg {
   DescriptionAr?: string;
   Images?: string;
   Name: string;
-  NameAr: string;
+  NameAr?: string;
   ProductCategory?: string[];
 }
