@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ISubCateg } from '../../../Models/ISubCategory';
 import { productsSubCategservice } from 'src/app/Services/productsSubCategservice';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-drop-down-list',
@@ -9,27 +10,32 @@ import { productsSubCategservice } from 'src/app/Services/productsSubCategservic
 })
 export class DropDownListComponent implements OnInit {
 
-  categList: ISubCateg[]
+  categList = []
   categListName = '' 
+  subCategNameList = []
+  subCategIDList = []
   
   constructor(private productServices: productsSubCategservice) { }
 
   ngOnInit(): void {
-    this.productServices.getSubCateg().subscribe(categList => {
-      // console.log(categList);
-      this.categListName = categList[0].Name
+    this.productServices.getSubCateg().subscribe(categListt => {
+      console.log(categListt);
+      this.categListName = categListt[0].Name
       console.log(this.categListName);
-      
+
+      // categListt.forEach((catgName) => {
+      // this.subCategNameList.push(catgName.Name)
+      // this.subCategIDList.push(catgName.id)
+      // console.log(this.subCategNameList);
+      // console.log(this.subCategIDList);
+
+      categListt.forEach(catgName => {
+      this.categList.push({Name:catgName.Name, id:catgName.id})
+    });
+
+    console.log(this.categList);
       
     })
-  }
-
-  fillData() {
-    for (let i of this.categList) {
-      console.log(i);
-    }
-    console.log('Clicked in Dropdown list');
-    
   }
 
 }

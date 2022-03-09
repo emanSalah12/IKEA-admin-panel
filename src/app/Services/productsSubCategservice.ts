@@ -26,7 +26,7 @@ export class productsSubCategservice {
         return actions.map((a: any) => {
           const data = a.payload.doc.data() as ISubCateg;
           data.id = a.payload.doc.id;
-          console.log(data.Name);
+          console.log(data);
           return data;
         });
       })
