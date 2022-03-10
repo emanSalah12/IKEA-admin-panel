@@ -4,6 +4,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { DropDownListComponent } from './drop-down-list/drop-down-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Products/AllProducts', pathMatch: 'full' },
@@ -14,7 +15,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProductsComponent, ProductFormComponent],
+  declarations: [
+    ProductsComponent,
+    ProductFormComponent,
+    DropDownListComponent,
+  ],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class ProductsModule {}

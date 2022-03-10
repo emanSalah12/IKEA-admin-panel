@@ -9,29 +9,65 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 export class ProductFormComponent implements OnInit {
   message = '';
 
+  @ViewChild('prdPrdName') changePrdName!: ElementRef;
   @ViewChild('prdName') changeName!: ElementRef;
+  @ViewChild('prdNameAr') changeNameAr!: ElementRef;
   @ViewChild('prdQuantity') changeQuan!: ElementRef;
   @ViewChild('prdPrice') changePrice!: ElementRef;
   @ViewChild('prdMaterial') changeMaterial!: ElementRef;
+  @ViewChild('prdMaterialAr') changeMaterialAr!: ElementRef;
   @ViewChild('prdAvail') changeAval!: ElementRef;
+  @ViewChild('prdDesc') changeDesc!: ElementRef;
+  @ViewChild('prdDescAr') changeDescAr!: ElementRef;
+  @ViewChild('prdLength') changeLength!: ElementRef;
+  @ViewChild('prdWidth') changeWidth!: ElementRef;
+  @ViewChild('prdColor') changeColor!: ElementRef;
+  @ViewChild('prdColorAr') changeColorAr!: ElementRef;
+  @ViewChild('prdDate') changeDate!: ElementRef;
+  @ViewChild('prdURL') changeURL!: ElementRef;
+  @ViewChild('prdSubCatg') changeSubCatg!: ElementRef;
 
   constructor(private productServices: ProductsCrudService) {}
 
   ngOnInit(): void {}
 
   saveProduct(
+    prdPrdName: string,
     prdName: string,
+    prdNameAr: string,
     prdQuantity: string,
     prdPrice: string,
     prdMaterial: string,
-    prdAval: string
+    prdMaterialAr: string,
+    prdAval: string,
+    prdDesc: string,
+    prdDescAr: string,
+    prdLength: string,
+    prdWidth: string,
+    prdColor: string,
+    prdColorAr: string,
+    prdDate: string,
+    prdURL: string,
+    prdSubCatg: string
   ) {
     let recordData = {};
+    recordData['ProductName'] = prdName;
     recordData['Name'] = prdName;
+    recordData['NameAr'] = prdNameAr;
     recordData['Price'] = prdPrice;
     recordData['Quantity'] = prdQuantity;
     recordData['Material'] = prdMaterial;
+    recordData['MaterialAr'] = prdMaterialAr;
     recordData['Online'] = prdAval;
+    recordData['Description'] = prdDesc;
+    recordData['DescriptionAr'] = prdDescAr;
+    recordData['CreatedAt'] = prdDate;
+    recordData['Color'] = prdColor;
+    recordData['ColorAr'] = prdColorAr;
+    recordData['Images'] = prdURL;
+    recordData['Length'] = prdLength;
+    recordData['Width'] = prdWidth;
+    recordData['SubCategory'] = prdSubCatg;
 
     this.productServices
       .createNewProduct(recordData)
@@ -46,10 +82,22 @@ export class ProductFormComponent implements OnInit {
   }
 
   private clearInput() {
+    this.changePrdName.nativeElement.value = '';
     this.changeName.nativeElement.value = '';
+    this.changeNameAr.nativeElement.value = '';
     this.changeQuan.nativeElement.value = '';
     this.changePrice.nativeElement.value = '';
     this.changeMaterial.nativeElement.value = '';
+    this.changeMaterialAr.nativeElement.value = '';
     this.changeAval.nativeElement.value = '';
+    this.changeDesc.nativeElement.value = '';
+    this.changeDescAr.nativeElement.value = '';
+    this.changeLength.nativeElement.value = '';
+    this.changeWidth.nativeElement.value = '';
+    this.changeColor.nativeElement.value = '';
+    this.changeColorAr.nativeElement.value = '';
+    this.changeURL.nativeElement.value = '';
+    this.changeDate.nativeElement.value = '';
+    this.changeSubCatg.nativeElement.value = '';
   }
 }

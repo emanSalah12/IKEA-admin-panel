@@ -16,13 +16,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(private productServices: ProductsCrudService) {}
 
-  deleteProduct(recordID) {
-    var sureMessage = confirm('Are you sure to delete record of product..!');
-    if (sureMessage) {
-      this.productServices.deleteProduct(recordID);
-    }
-  }
-
   ngOnInit(): void {
     this.subscriber = this.productServices
       .getAllProducts()
@@ -45,5 +38,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriber.unsubscribe();
+  }
+
+  deleteProduct(recordID) {
+    var sureMessage = confirm('Are you sure to delete record of product..!');
+    if (sureMessage) {
+      this.productServices.deleteProduct(recordID);
+    }
+  }
+
+  editProduct(prdId: string) {
+    // this.productServices.getProductById(prdId)
+    console.log(prdId);
   }
 }

@@ -4,18 +4,48 @@
   </div>
 
   <div class="form-group">
+    <label for="prdPrdName" class="form-label">Product Name:</label>
     <input
       type="text"
       class="form-control"
-      id="prdName"
-      placeholder="Enter product Name"
-      #prdName
+      id="prdPrdName"
+      placeholder="Enter product Name in English"
+      #prdPrdName
+      required
+      pattern="[A-Za-z]{3,}"
     />
   </div>
 
   <div class="form-group">
+    <label for="prdName" class="form-label">Name in English:</label>
     <input
       type="text"
+      class="form-control"
+      id="prdName"
+      placeholder="Enter Name in English"
+      #prdName
+      required
+      pattern="[A-Za-z]{3,}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdNameAr" class="form-label">Name in Arabic:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdNameAr"
+      placeholder="Enter Name in Arabic"
+      #prdNameAr
+      required
+      pattern="[A-Za-z]{3,}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdQuan" class="form-label">Product Quantity:</label>
+    <input
+      type="number"
       class="form-control"
       id="prdQuan"
       placeholder="Enter product Quantity"
@@ -23,8 +53,9 @@
     />
   </div>
   <div class="form-group">
+    <label for="prdPrice" class="form-label">Product Price:</label>
     <input
-      type="text"
+      type="number"
       class="form-control"
       id="prdPrice"
       placeholder="Enter product Price"
@@ -32,15 +63,33 @@
     />
   </div>
   <div class="form-group">
+    <label for="prdMaterial" class="form-label"
+      >Product Material in English:</label
+    >
     <input
       type="text"
       class="form-control"
       id="prdMaterial"
-      placeholder="Enter product Material"
+      placeholder="Enter product Material in English"
       #prdMaterial
     />
   </div>
+
   <div class="form-group">
+    <label for="prdMaterialAr" class="form-label"
+      >Product Material in Arabic:</label
+    >
+    <input
+      type="text"
+      class="form-control"
+      id="prdMaterialAr"
+      placeholder="Enter product Material in Arabic"
+      #prdMaterialAr
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdAval" class="form-label">Product Availability:</label>
     <input
       type="text"
       class="form-control"
@@ -50,15 +99,132 @@
     />
   </div>
 
+  <div class="form-group">
+    <label for="prdDesc" class="form-label"
+      >Product Description in English:</label
+    >
+    <input
+      type="text"
+      class="form-control"
+      id="prdDesc"
+      placeholder="Enter product Description in English"
+      #prdDesc
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdDescAr" class="form-label"
+      >Product Description in Arabic:</label
+    >
+    <input
+      type="text"
+      class="form-control"
+      id="prdDescAr"
+      placeholder="Enter product Description in Arabic"
+      #prdDescAr
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdLength" class="form-label">Product Length:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdLength"
+      placeholder="Enter product Length"
+      #prdLength
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdWidth" class="form-label">Product Width:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdWidth"
+      placeholder="Enter product Width"
+      #prdWidth
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdURL" class="form-label">Product Image:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdURL"
+      placeholder="Enter product Image"
+      #prdURL
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdColor" class="form-label">Product Color in English:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdColor"
+      placeholder="Enter product Color in English"
+      #prdColor
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdColorAr" class="form-label">Product Color in Arabic:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdColorAr"
+      placeholder="Enter product Color in Arabic"
+      #prdColorAr
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdDate" class="form-label">Product Date:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdDate"
+      placeholder="Enter product Date"
+      #prdDate
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="prdSubCatg" class="form-label">Product Subcategory:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="prdSubCatg"
+      placeholder="Enter product Subcategory"
+      #prdSubCatg
+    />
+  </div>
+
+  <app-drop-down-list></app-drop-down-list>
+
   <button
     class="btn-primary"
     (click)="
       saveProduct(
+        prdPrdName.value,
         prdName.value,
+        prdNameAr.value,
         prdQuantity.value,
         prdPrice.value,
         prdMaterial.value,
-        prdAvail.value
+        prdMaterialAr.value,
+        prdAvail.value,
+        prdDesc.value,
+        prdDescAr.value,
+        prdLength.value,
+        prdWidth.value,
+        prdColor.value,
+        prdColorAr.value,
+        prdDate.value,
+        prdURL.value,
+        prdSubCatg.value
       )
     "
   >

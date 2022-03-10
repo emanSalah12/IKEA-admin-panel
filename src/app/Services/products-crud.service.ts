@@ -55,7 +55,7 @@ export class ProductsCrudService {
     return this.firestoreServices.doc('Products/' + recordID).update(record);
   }
 
-  getProductById(prdId: string): Observable<IProduct> {
+  getProductDetailsById(prdId: string): Observable<IProduct> {
     return this.firestoreServices
       .collection('Products')
       .doc(prdId)
@@ -68,5 +68,9 @@ export class ProductsCrudService {
           return data;
         })
       );
+  }
+
+  getProductById(prdId: string) {
+    return this.firestoreServices.doc('Products' + prdId).valueChanges();
   }
 }
