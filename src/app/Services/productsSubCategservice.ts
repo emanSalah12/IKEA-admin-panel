@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISubCateg } from '../Models/ISubCategory';
+import { ISubCateg } from '../Models/iSubCategory';
 import { map } from 'rxjs/operators';
 import {
   AngularFirestore,
@@ -11,17 +11,15 @@ import {
   providedIn: 'root',
 })
 export class productsSubCategservice {
-
   // Using FireStore
   private subCategoryCollection: AngularFirestoreCollection<ISubCateg>;
   subCategory: Observable<ISubCateg[]>;
   routeURL: string = '';
 
   constructor(public firestoreServices: AngularFirestore) {
-
-    this.subCategoryCollection = firestoreServices.collection<ISubCateg>('subCategory');
-    this.subCategory = this.subCategoryCollection.snapshotChanges()
-    .pipe(
+    this.subCategoryCollection =
+      firestoreServices.collection<ISubCateg>('subCategory');
+    this.subCategory = this.subCategoryCollection.snapshotChanges().pipe(
       map((actions) => {
         return actions.map((a: any) => {
           const data = a.payload.doc.data() as ISubCateg;
@@ -38,5 +36,4 @@ export class productsSubCategservice {
     // Using firestore
     return this.subCategory;
   }
-
 }
