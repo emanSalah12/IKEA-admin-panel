@@ -1,4 +1,3 @@
-import { DashboardServiceService } from './../../Services/dashboard-service/dashboard-service.service';
 import { Component, OnInit } from '@angular/core';
 import {
   AngularFirestore,
@@ -16,10 +15,7 @@ export class DashboardComponent implements OnInit {
   totalOrders: [] | any;
   totalUsers: [] | any;
 
-  constructor(
-    private userSer: DashboardServiceService,
-    public UF: AngularFirestore
-  ) {}
+  constructor(public UF: AngularFirestore) {}
 
   getUsers() {
     const users = this.UF.collection('users').snapshotChanges();
@@ -30,16 +26,16 @@ export class DashboardComponent implements OnInit {
   }
 
   getProducts() {
-    const users = this.UF.collection('Products').snapshotChanges();
-    users.subscribe((payload) => {
+    const products = this.UF.collection('Products').snapshotChanges();
+    products.subscribe((payload) => {
       this.totalProducts = payload.length;
       console.log(this.totalProducts);
     });
   }
 
   getOrders() {
-    const users = this.UF.collection('Orders').snapshotChanges();
-    users.subscribe((payload) => {
+    const orders = this.UF.collection('Orders').snapshotChanges();
+    orders.subscribe((payload) => {
       this.totalOrders = payload.length;
       console.log(this.totalOrders);
     });

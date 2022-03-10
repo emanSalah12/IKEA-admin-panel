@@ -7,51 +7,31 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardServiceService {
    userCollection!: AngularFirestoreCollection<Iuser>;
-  totalUsers:[]|any;
-  totalProducts:[]|any;
-  totalOrders:[]|any;
-  user:[]|any;
+  //  users: Observable<Iuser[]>;
 
   constructor(public UF: AngularFirestore) {
-    this.user=this.totalUsers
+    // this.userCollection = UF.collection<Iuser> ('users');
 
-  }
 
-//   getUsers(){
-//     const users= this.UF.collection('users').snapshotChanges();
-//     users.subscribe(payload=>{
+    }
 
-//         this.totalUsers= payload.length;
-//         this.user=this.totalUsers
-//         console.log(this.totalUsers);
-//         console.log(this.user);
+    // .pipe(map((collec:any)=>
+    //   collec.map((f:any)=>{
 
-//       })
-//       return this.totalUsers
-// }
+    //     const data = f.payload.doc.data() as Iuser;
+    //       const id = f.payload.doc.id;
+    //       data.id = id;
+    //       return data;
+    //   })
+    // )
+    // )
 
-// getProducts(){
-//   const users= this.UF.collection('Products').snapshotChanges();
-//   users.subscribe(payload=>{
 
-//       this.totalProducts= payload.length;
-//       console.log(this.totalProducts);
-//     })
-// }
-
-// getOrders(){
-//   const users= this.UF.collection('Orders').snapshotChanges();
-//   users.subscribe(payload=>{
-
-//       this.totalOrders= payload.length;
-//       console.log(this.totalOrders);
-//     })
-// }
-
+ 
 }
-
