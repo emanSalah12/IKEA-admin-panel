@@ -66,7 +66,7 @@ export class OrderDetailsComponent implements OnInit {
           this.orderItems.forEach((product) => {
             console.log(product);
             this.productsService
-              .getProductById(product.ProductID)
+              .getProductDetailsById(product.ProductID)
               .pipe(first())
               .subscribe((productData) => {
                 this.loading = false;
