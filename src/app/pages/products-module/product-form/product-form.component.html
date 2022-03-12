@@ -179,19 +179,15 @@
           #prdDate
         >
       </div>
-  
-      <div class="form-group">
-        <label for="prdSubCatg" class="form-label">Product Subcategory:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="prdSubCatg"
-          placeholder="Enter product Subcategory"
-          #prdSubCatg
-        >
-      </div>
       
-      <app-drop-down-list></app-drop-down-list>
+      <div class="form-group">
+        <label for="prdSubCateg" class="form-label">Product Subcategory:</label>
+        <select id="prdSubCateg" class="form-control" #prdSubCatg >
+          <option value="0" selected>- Select -</option>
+          <option *ngFor="let catg of categList" [value]="catg.id"> {{catg.Name}} </option>
+        </select>
+      </div>
+    
   
       <button
         class="btn-primary"

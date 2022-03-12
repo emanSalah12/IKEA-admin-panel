@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
+import { productsSubCategservice } from 'src/app/Services/productsSubCategservice';
 
 
 @Component({
@@ -9,6 +10,10 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 })
 export class ProductFormComponent implements OnInit {
 
+  categList = []
+  categListName = '' 
+  subCategNameList = []
+  subCategIDList = []
   message = ''
 
   @ViewChild('prdPrdName') changePrdName !:ElementRef
@@ -30,9 +35,22 @@ export class ProductFormComponent implements OnInit {
   @ViewChild('prdSubCatg') changeSubCatg !:ElementRef
 
   constructor(
-    private productServices : ProductsCrudService ) { }
+    private productServices : ProductsCrudService,
+    private subCategServices: productsSubCategservice ) { }
 
   ngOnInit(): void {
+    this.subCategServices.getSubCateg().subscribe(categListt => {
+      console.log(categListt);
+      this.categListName = categListt[0].Name
+      console.log(this.categListName);
+
+      categListt.forEach(catgName => {
+      this.categList.push({Name:catgName.Name, id:catgName.id})
+    });
+
+    console.log(this.categList);
+      
+    })
   }
 
   saveProduct(prdPrdName:string, prdName: string, prdNameAr: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdMaterialAr:string, prdAval: string, prdDesc: string, prdDescAr: string, prdLength: string, prdWidth: string, prdColor: string, prdColorAr: string, prdDate: string, prdURL: string, prdSubCatg: string,){
