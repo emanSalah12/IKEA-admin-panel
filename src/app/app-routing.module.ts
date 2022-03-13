@@ -8,6 +8,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { OrderDetailsComponent } from './pages/orders/order-details/order-details.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -29,6 +30,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'Login', component: LoginComponent },
+  { path: 'ResetPassword', component: ResetPasswordComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
