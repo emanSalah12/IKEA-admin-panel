@@ -18,11 +18,6 @@
     .form-check {
       input {
         cursor: pointer;
-
-        &:checked {
-          filter: brightness(0) saturate(100%) invert(32%) sepia(20%)
-            saturate(3414%) hue-rotate(218deg) brightness(89%) contrast(100%);
-        }
       }
     }
 
