@@ -1,7 +1,11 @@
-<div class="container form-container d-flex flex-column  ">
+<div class="container form-container d-flex flex-column">
   <mat-spinner *ngIf="loading" diameter="40" class="mx-auto"></mat-spinner>
 
-  <form #loginForm="ngForm" *ngIf="!loading" [class]="darkMode?'mat-app-background':'bg-white'">
+  <form
+    #loginForm="ngForm"
+    *ngIf="!loading"
+    [class]="darkMode ? 'mat-app-background' : 'bg-white'"
+  >
     <div class="form-group">
       <label for="exampleInputUsername1">Email</label>
       <input
@@ -53,10 +57,13 @@
     <button
       type="button"
       [disabled]="loginForm.invalid"
-      [class]="darkMode?'btn text-white':'btn'"
+      [class]="darkMode ? 'btn text-white' : 'btn'"
       (click)="login()"
     >
       Login
     </button>
+    <a routerLink="/ResetPassword" class="reset-password-link">
+      Forgot Your Password?
+    </a>
   </form>
 </div>

@@ -38,7 +38,7 @@ export class AdminService {
     this.admins = this.adminsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
-          const data = a.payload.doc.data() as IAdmin;
+          const data = a.payload.doc.data();
           const id = a.payload.doc.id;
           data.id = id;
           this.adminsIds.push(id);
@@ -132,5 +132,16 @@ export class AdminService {
 
   get getLoggedStatus(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
+  }
+
+  resetPassword(email: string) {
+    this.firebaseAuth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('Password reset email sent!');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

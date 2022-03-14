@@ -26,6 +26,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { NewChartsComponent } from './pages/dashboard/allCharts/Charts_One/new-charts.component';
 import { ChartsTwoComponent } from './pages/dashboard/allCharts/charts-two/charts-two.component';
 import { OrderDetailsComponent } from './pages/orders/order-details/order-details.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { OrderDetailsComponent } from './pages/orders/order-details/order-detail
     NewChartsComponent,
     ChartsTwoComponent,
     OrderDetailsComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
