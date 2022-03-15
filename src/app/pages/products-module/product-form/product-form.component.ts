@@ -72,11 +72,11 @@ export class ProductFormComponent implements OnInit {
     prdSubCatg: string
   ) {
     let recordData = {};
-    recordData['ProductName'] = prdName;
+    recordData['ProductName'] = prdPrdName;
     recordData['Name'] = prdName;
     recordData['NameAr'] = prdNameAr;
-    recordData['Price'] = prdPrice;
-    recordData['Quantity'] = prdQuantity;
+    recordData['Price'] = +prdPrice;
+    recordData['Quantity'] =+prdQuantity;
     recordData['Material'] = prdMaterial;
     recordData['MaterialAr'] = prdMaterialAr;
     recordData['Online'] = prdAval;
@@ -85,9 +85,9 @@ export class ProductFormComponent implements OnInit {
     recordData['CreatedAt'] = prdDate;
     recordData['Color'] = prdColor;
     recordData['ColorAr'] = prdColorAr;
-    recordData['Images'] = prdURL;
-    recordData['Length'] = prdLength;
-    recordData['Width'] = prdWidth;
+    recordData['Images'] = [prdURL,prdURL];
+    recordData['Length'] = +prdLength;
+    recordData['Width'] =+prdWidth;
     recordData['SubCategory'] = prdSubCatg;
 
     this.productServices
