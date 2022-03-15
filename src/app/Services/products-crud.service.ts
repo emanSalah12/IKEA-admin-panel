@@ -70,7 +70,25 @@ export class ProductsCrudService {
       );
   }
 
-  getProductById(prdId: string) {
-    return this.firestoreServices.doc('Products' + prdId).valueChanges();
+  async getProdById (prdId: string) {
+    let prod={};
+   await this.firestoreServices
+      .collection('Products')
+      .doc(prdId)
+      .ref.get()
+      .then(function (doc) {
+        if (doc.exists) {
+          console.log('exist', doc.data());
+          prod=doc.data();
+          prod['id']=prdId;
+        } else {
+          console.log('There is no document!');
+        }
+      })
+      .catch(function (error) {
+        console.log('There was an error getting your document:', error);
+      });
+
+      return prod;
   }
 }

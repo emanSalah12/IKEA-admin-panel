@@ -12,6 +12,7 @@
         placeholder="Enter product Name in English"
         #prdPrdName
         required pattern="[A-Za-z]{3,}"
+        [value]="product.ProductName?product.ProductName:''"
       >
     </div>
 
@@ -24,6 +25,8 @@
         placeholder="Enter Name in English"
         #prdName
         required pattern="[A-Za-z]{3,}"
+        [value]="product.Name?product.Name:''"
+
       >
     </div>
 
@@ -36,6 +39,8 @@
         placeholder="Enter Name in Arabic"
         #prdNameAr
         required pattern="[A-Za-z]{3,}"
+        [value]="product.NameAr?product.NameAr:''"
+
       >
     </div>
 
@@ -47,6 +52,8 @@
         id="prdQuan"
         placeholder="Enter product Quantity"
         #prdQuantity
+        [value]="product.Quantity?product.Quantity:''"
+
       >
     </div>
     <div class="form-group">
@@ -57,6 +64,7 @@
         id="prdPrice"
         placeholder="Enter product Price"
         #prdPrice
+        [value]="product.Price?product.Price:''"
       >
     </div>
     <div class="form-group">
@@ -67,6 +75,7 @@
           id="prdMaterial"
           placeholder="Enter product Material in English"
           #prdMaterial
+          [value]="product.Material? product.Material:''"
         >
       </div>
 
@@ -78,6 +87,7 @@
           id="prdMaterialAr"
           placeholder="Enter product Material in Arabic"
           #prdMaterialAr
+          [value]="product.MaterialAr?product.MaterialAr:''"
         >
       </div>
 
@@ -89,6 +99,7 @@
         id="prdAval"
         placeholder="Enter product Availability"
         #prdAvail
+        [value]="product.Online?product.Online :''"
       >
     </div>
 
@@ -100,6 +111,7 @@
           id="prdDesc"
           placeholder="Enter product Description in English"
           #prdDesc
+          [value]="product.Online?product.Description :''"
         >
       </div>
 
@@ -111,6 +123,7 @@
           id="prdDescAr"
           placeholder="Enter product Description in Arabic"
           #prdDescAr
+          [value]="product.DescriptionAr?product.DescriptionAr:''"
         >
       </div>
 
@@ -122,6 +135,7 @@
         id="prdLength"
         placeholder="Enter product Length"
         #prdLength
+        [value]="product.Length?product.Length:''"
       >
     </div>
 
@@ -133,6 +147,7 @@
         id="prdWidth"
         placeholder="Enter product Width"
         #prdWidth
+        [value]="product.Width?product.Width:''"
       >
     </div>
 
@@ -144,6 +159,7 @@
         id="prdURL"
         placeholder="Enter product Image"
         #prdURL
+        [value]="product.Images[0]?product.Images[0]:''"
       >
     </div>
 
@@ -155,6 +171,7 @@
         id="prdColor"
         placeholder="Enter product Color in English"
         #prdColor
+        [value]="product.Color?product.Color:''"
       >
     </div>
 
@@ -166,6 +183,7 @@
         id="prdColorAr"
         placeholder="Enter product Color in Arabic"
         #prdColorAr
+        [value]="product.ColorAr?product.ColorAr:''"
       >
     </div>
 
@@ -177,6 +195,7 @@
         id="prdDate"
         placeholder="Enter product Date"
         #prdDate
+        [value]="product.Date?product.Date:''"
       >
     </div>
 
@@ -188,6 +207,7 @@
         id="prdSubCatg"
         placeholder="Enter product Subcategory"
         #prdSubCatg
+        [value]="product.SubCategory?product.SubCategory:''"
       >
     </div>
 
