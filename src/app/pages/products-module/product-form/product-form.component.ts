@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsCrudService } from 'src/app/Services/products-crud.service';
+import { productsSubCategservice } from 'src/app/Services/productsSubCategservice';
 
 @Component({
   selector: 'app-product-form',
@@ -9,27 +10,47 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 export class ProductFormComponent implements OnInit {
   message = '';
 
-  @ViewChild('prdPrdName') changePrdName!: ElementRef;
-  @ViewChild('prdName') changeName!: ElementRef;
-  @ViewChild('prdNameAr') changeNameAr!: ElementRef;
-  @ViewChild('prdQuantity') changeQuan!: ElementRef;
-  @ViewChild('prdPrice') changePrice!: ElementRef;
-  @ViewChild('prdMaterial') changeMaterial!: ElementRef;
-  @ViewChild('prdMaterialAr') changeMaterialAr!: ElementRef;
-  @ViewChild('prdAvail') changeAval!: ElementRef;
-  @ViewChild('prdDesc') changeDesc!: ElementRef;
-  @ViewChild('prdDescAr') changeDescAr!: ElementRef;
-  @ViewChild('prdLength') changeLength!: ElementRef;
-  @ViewChild('prdWidth') changeWidth!: ElementRef;
-  @ViewChild('prdColor') changeColor!: ElementRef;
-  @ViewChild('prdColorAr') changeColorAr!: ElementRef;
-  @ViewChild('prdDate') changeDate!: ElementRef;
-  @ViewChild('prdURL') changeURL!: ElementRef;
-  @ViewChild('prdSubCatg') changeSubCatg!: ElementRef;
+  categList = []
+  categListName = '' 
+  subCategNameList = []
+  subCategIDList = []
 
-  constructor(private productServices: ProductsCrudService) {}
+  @ViewChild('prdPrdName') changePrdName !:ElementRef
+  @ViewChild('prdName') changeName !:ElementRef
+  @ViewChild('prdNameAr') changeNameAr !:ElementRef
+  @ViewChild('prdQuantity') changeQuan !:ElementRef
+  @ViewChild('prdPrice') changePrice !:ElementRef
+  @ViewChild('prdMaterial') changeMaterial !:ElementRef
+  @ViewChild('prdMaterialAr') changeMaterialAr !:ElementRef
+  @ViewChild('prdAvail') changeAval !:ElementRef
+  @ViewChild('prdDesc') changeDesc !:ElementRef
+  @ViewChild('prdDescAr') changeDescAr !:ElementRef
+  @ViewChild('prdLength') changeLength !:ElementRef
+  @ViewChild('prdWidth') changeWidth !:ElementRef
+  @ViewChild('prdColor') changeColor !:ElementRef
+  @ViewChild('prdColorAr') changeColorAr !:ElementRef
+  @ViewChild('prdDate') changeDate !:ElementRef
+  @ViewChild('prdURL') changeURL !:ElementRef
+  @ViewChild('prdSubCatg') changeSubCatg !:ElementRef
 
-  ngOnInit(): void {}
+  constructor(
+    private productServices : ProductsCrudService,
+    private subCategServices: productsSubCategservice ) { }
+
+  ngOnInit(): void {
+    this.subCategServices.getSubCateg().subscribe(categListt => {
+      console.log(categListt);
+      this.categListName = categListt[0].Name
+      console.log(this.categListName);
+
+      categListt.forEach(catgName => {
+      this.categList.push({Name:catgName.Name, id:catgName.id})
+    });
+
+    console.log(this.categList);
+      
+    })
+  }
 
   saveProduct(
     prdPrdName: string,

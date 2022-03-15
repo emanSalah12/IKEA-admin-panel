@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="prdSubCateg" class="form-label">Product Subcategory:</label>
-    <select id="prdSubCateg" class="form-control" >
+    <select id="prdSubCateg" class="form-control" #prdSubCatg >
       <option value="0" selected>- Select -</option>
       <option *ngFor="let catg of categList" [value]="catg.id"> {{catg.Name}} </option>
     </select>
-  </div>
+</div>

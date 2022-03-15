@@ -10,9 +10,9 @@ import { ProductsCrudService } from 'src/app/Services/products-crud.service';
 })
 export class EditProductComponent implements OnInit {
 
-  ID:string = ''
+  id:string = ''
   message = ''
-  listOfProducts: IProduct = {} as IProduct
+  listOfProducts: IProduct|null={} as IProduct
 
   @ViewChild('prdPrdName') changePrdName !:ElementRef
   @ViewChild('prdName') changeName !:ElementRef
@@ -39,24 +39,11 @@ export class EditProductComponent implements OnInit {
     private activeRouter : ActivatedRoute ,
   ) { }
   
-
-  ngOnInit(): void {
-    this.activeRouter.paramMap.subscribe((paramMap) => {
-      this.ID = paramMap.get('id')
-      console.log(this.ID)
-
-      // this.listOfProducts = this.productServices.getProductById(this.ID)
-      // console.log(this.listOfProducts)
-    
-    })
-  }
-
-
   ngAfterViewInit(): void {
 
-    if (this.ID) {
+    if (this.id) {
       const listOfProducts = this.productServices.getProductById(
-        this.ID
+        this.id
       );
       console.log(listOfProducts);
 
@@ -66,6 +53,17 @@ export class EditProductComponent implements OnInit {
       //   this.listOfProducts.Quantity = product.Quantity
       // });
     }
+  }
+
+  ngOnInit(): void {
+    this.activeRouter.paramMap.subscribe((paramMap) => {
+      this.id = paramMap.get('id')
+      console.log(this.id)
+
+      // this.listOfProducts = this.productServices.getProductById(this.id)
+      // console.log(this.listOfProducts)
+    
+    })
   }
 
   updateProduct(prdPrdName:string, prdName: string, prdNameAr: string, prdQuantity: string, prdPrice: string, prdMaterial:string, prdMaterialAr:string, prdAval: string, prdDesc: string, prdDescAr: string, prdLength: string, prdWidth: string, prdColor: string, prdColorAr: string, prdDate: string, prdURL: string, prdSubCatg: string,){
@@ -88,7 +86,7 @@ export class EditProductComponent implements OnInit {
     recordData['Width'] = prdWidth
     recordData['SubCategory'] = prdSubCatg
 
-    this.productServices.updateProduct(this.ID , recordData).then(res => {
+    this.productServices.updateProduct(this.id , recordData).then(res => {
 
       console.log(res);
       this.message = ('Product Successfully Updateeed...')
