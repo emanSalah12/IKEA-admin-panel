@@ -1,60 +1,73 @@
-<div class="parent">
-  <h3>Products</h3>
+<div class="mat-elevation-z8 mat-app-background">
+  <h2 class="ps-3 pt-3">Products</h2>
 
-  <div class="search-bar">
-    <input
-      class="form-control"
-      placeholder="Search..."
-      type="text"
-      #search
-      (keyup)="filterData(search.value)"
-    />
-  </div>
-
-  <button class="btnTop btn-primary" [routerLink]="['/Products/ProductForm']">
-    Add Product
-  </button>
-
-  <table class="table table-hover mat-app-background ">
-    <thead class="">
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Material</th>
-      <th scope="col">Availability</th>
-      <th scope="col">Action</th>
-    </thead>
-
-    <div
-      class="spinner spinner-border text-primary"
-      role="status"
-      [hidden]="!loading"
-    >
-      <span class="visually-hidden">Loading...</span>
+  <div class="d-flex flex-row justify-content-around mb-5">
+    <div class="search-bar col-8">
+      <input class="form-control" placeholder="Search..." type="text" #search (keyup)="filterData(search.value)" />
     </div>
+  
+    <button class="btnTop btn btn-primary" [routerLink]="['/Products/ProductForm']">
+      Add Product
+    </button>
+  </div>
+  <hr/>
+  <mat-spinner [hidden]="!loading" diameter="30" class="mx-auto"></mat-spinner>
 
-    <tbody>
-      <tr *ngFor="let prd of filterProduct">
-        <td>{{ prd.id }}</td>
-        <td>{{ prd.Name }}</td>
-        <td>{{ prd.Price }}</td>
-        <td>{{ prd.Quantity }}</td>
-        <td>{{ prd.Material }}</td>
-        <td>{{ prd.Online }}</td>
-        <td class="d-flex">
-          <button
-            class="btn1 bttn btn-success"
-            [routerLink]="['/Products/UpdateProduct', prd.id]"
-            (click)="editProduct(prd.id)"
-          >
-            Edit
-          </button>
-          <button class="btn2 bttn btn-danger" (click)="deleteProduct(prd.id)">
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <mat-table [dataSource]="dataSource" [hidden]="loading" class="p-2 mx-3">
+    <ng-container matColumnDef="ID">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.id }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.Name }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Price">
+      <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.Price }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Quantity">
+      <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.Quantity }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Material">
+      <mat-header-cell *matHeaderCellDef>Material</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.Material }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Availability">
+      <mat-header-cell *matHeaderCellDef>Availability</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.Online }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button style="background: transparent;border: none;"
+          [routerLink]="['/Products/UpdateProduct', element.id]" (click)="editProduct(element.id)">
+          <mat-icon aria-hidden="false" class="text-success" title="edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button style="background: transparent;border: none;" (click)="deleteProduct(element.id)">
+          <mat-icon aria-hidden="false" class="text-danger" title="delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="listOfProducts.length" [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 25, 100]"
+    aria-label="Select page">
+  </mat-paginator>
 </div>

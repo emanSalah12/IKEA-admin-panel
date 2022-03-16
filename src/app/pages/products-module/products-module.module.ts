@@ -5,6 +5,9 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { DropDownListComponent } from './drop-down-list/drop-down-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from 'src/app/material/material.module';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Products/AllProducts', pathMatch: 'full' },
@@ -20,6 +23,6 @@ const routes: Routes = [
     ProductFormComponent,
     DropDownListComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes),MaterialModule,FormsModule],
 })
 export class ProductsModule {}
