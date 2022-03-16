@@ -24,7 +24,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     'Price',
     'Quantity',
     'Material',
-    'Availability',
     'Action',
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
