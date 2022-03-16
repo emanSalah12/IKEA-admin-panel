@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class OrdersComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'index',
+    'orderID',
     'total',
     'purchaseDate',
     'status',
