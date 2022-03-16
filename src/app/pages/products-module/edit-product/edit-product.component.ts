@@ -32,7 +32,6 @@ export class EditProductComponent implements OnInit {
   @ViewChild('prdWidth') changeWidth!: ElementRef;
   @ViewChild('prdColor') changeColor!: ElementRef;
   @ViewChild('prdColorAr') changeColorAr!: ElementRef;
-  @ViewChild('prdDate') changeDate!: ElementRef;
   @ViewChild('prdURL') changeURL!: ElementRef;
   @ViewChild('prdSubCatg') changeSubCatg!: ElementRef;
 
@@ -69,7 +68,6 @@ export class EditProductComponent implements OnInit {
     prdWidth: string,
     prdColor: string,
     prdColorAr: string,
-    prdDate: string,
     prdURL: string,
     prdSubCatg: string
   ) {
@@ -78,19 +76,19 @@ export class EditProductComponent implements OnInit {
     recordData['ProductName'] = prdPrdName;
     recordData['Name'] = prdName;
     recordData['NameAr'] = prdNameAr;
-    recordData['Price'] = prdPrice;
-    recordData['Quantity'] = prdQuantity;
+    recordData['Price'] =+prdPrice;
+    recordData['Quantity'] =+prdQuantity;
     recordData['Material'] = prdMaterial;
     recordData['MaterialAr'] = prdMaterialAr;
     recordData['Online'] = prdAval;
     recordData['Description'] = prdDesc;
     recordData['DescriptionAr'] = prdDescAr;
-    recordData['CreatedAt'] = prdDate;
+    recordData['CreatedAt'] = this.product.CreatedAt;
     recordData['Color'] = prdColor;
     recordData['ColorAr'] = prdColorAr;
     recordData['Images'] = this.product.Images;
-    recordData['Length'] = prdLength;
-    recordData['Width'] = prdWidth;
+    recordData['Length'] = +prdLength;
+    recordData['Width'] = +prdWidth;
     recordData['SubCategory'] = prdSubCatg;
 
     this.productServices
@@ -121,7 +119,6 @@ export class EditProductComponent implements OnInit {
     this.changeColor.nativeElement.value = '';
     this.changeColorAr.nativeElement.value = '';
     this.changeURL.nativeElement.value = '';
-    this.changeDate.nativeElement.value = '';
     this.changeSubCatg.nativeElement.value = '';
   }
 }

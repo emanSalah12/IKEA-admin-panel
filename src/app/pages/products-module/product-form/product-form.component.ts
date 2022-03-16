@@ -29,7 +29,6 @@ export class ProductFormComponent implements OnInit {
   @ViewChild('prdWidth') changeWidth !:ElementRef
   @ViewChild('prdColor') changeColor !:ElementRef
   @ViewChild('prdColorAr') changeColorAr !:ElementRef
-  @ViewChild('prdDate') changeDate !:ElementRef
   @ViewChild('prdURL') changeURL !:ElementRef
   @ViewChild('prdSubCatg') changeSubCatg !:ElementRef
 
@@ -67,7 +66,6 @@ export class ProductFormComponent implements OnInit {
     prdWidth: string,
     prdColor: string,
     prdColorAr: string,
-    prdDate: string,
     prdURL: string,
     prdSubCatg: string
   ) {
@@ -79,16 +77,16 @@ export class ProductFormComponent implements OnInit {
     recordData['Quantity'] =+prdQuantity;
     recordData['Material'] = prdMaterial;
     recordData['MaterialAr'] = prdMaterialAr;
-    recordData['Online'] = prdAval;
+    recordData['Online'] = prdAval?true:false;
     recordData['Description'] = prdDesc;
     recordData['DescriptionAr'] = prdDescAr;
-    recordData['CreatedAt'] = prdDate;
     recordData['Color'] = prdColor;
     recordData['ColorAr'] = prdColorAr;
     recordData['Images'] = [prdURL,prdURL];
     recordData['Length'] = +prdLength;
     recordData['Width'] =+prdWidth;
     recordData['SubCategory'] = prdSubCatg;
+    recordData['CreatedAt'] = new Date();
 
     this.productServices
       .createNewProduct(recordData)
@@ -118,7 +116,6 @@ export class ProductFormComponent implements OnInit {
     this.changeColor.nativeElement.value = '';
     this.changeColorAr.nativeElement.value = '';
     this.changeURL.nativeElement.value = '';
-    this.changeDate.nativeElement.value = '';
     this.changeSubCatg.nativeElement.value = '';
   }
 }
