@@ -6,6 +6,7 @@ import { OrdersService } from 'src/app/Services/orders.service';
 import { MatDialog } from '@angular/material/dialog'; //import matDialog
 import { ReusableDialogComponent } from 'src/app/material/materialComponents/reusable-dialog/reusable-dialog.component';
 import { Subscription } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-orders',
@@ -30,7 +31,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private orders: OrdersService, private dialog: MatDialog) {
+  constructor(private orders: OrdersService, private dialog: MatDialog,private _angularFireStorage:AngularFireStorage) {
     this.setOrders();
   }
 
@@ -88,6 +89,15 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.setOrders();
   }
 
+  path
+  selectImage(event){
+    this.path=event.target.files[0]   
+  }
+  uploadImage(){
+    let imgPath="/images/"+Math.random()+'/'+this.path.name 
+    console.log(this.path,imgPath);
+    this._angularFireStorage.upload(imgPath, this.path)
+  }
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }

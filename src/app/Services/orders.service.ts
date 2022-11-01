@@ -23,6 +23,7 @@ export class OrdersService {
           ref.where('Status', '==', status == 'true' ? true : false)
         )
       : this.firestore.collection<IOrder>('Orders');
+      // : this.firestore.collection<IOrder>('Orders',ref=>ref.orderBy('Status').limitToLast(10));
 
     let filteredOrders = this.ordersCollection.snapshotChanges().pipe(
       map((actions) => {
